@@ -1,0 +1,401 @@
+<%- include('../partials/header', { title: "SJC Mpigi - Administration Dashboard", activePage: 'dashboard' }) %>
+
+<div class="container py-4">
+
+    <!-- 1. Hero Welcome & Quick Analytics Header -->
+    <div class="row align-items-center mb-5 g-4">
+        <div class="col-lg-8">
+            <h1 class="display-5 text-sky-950 mb-2">Welcome to SJC Administration Dashboard</h1>
+            <p class="lead text-muted">
+                Quickly manage school newsletters, events calendar, student admissions, and alumni directories in one centralized place.
+            </p>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+                <a href="/admin?tab=admissions" class="btn btn-sky-custom px-4 py-2 rounded-3">
+                    <i class="bi bi-file-earmark-person-fill"></i> Manage Admissions
+                </a>
+                <a href="/admin?tab=announcements" class="btn btn-outline-dark px-4 py-2 rounded-3">
+                    <i class="bi bi-megaphone-fill"></i> Publish Announcement
+                </a>
+                <a href="/admin?tab=events" class="btn btn-outline-dark px-4 py-2 rounded-3">
+                    <i class="bi bi-calendar-event-fill"></i> Schedule Event
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <div class="p-4 bg-white rounded-4 border shadow-sm text-center card-custom">
+                <i class="bi bi-shield-check-fill text-emerald-600 display-4"></i>
+                <h5 class="mt-2 text-sky-950 mb-0">System Status: Active</h5>
+                <p class="text-xs text-muted mb-3">Database Connection Secured</p>
+                <a href="/admin" class="btn btn-warning text-dark font-bold w-full rounded-3 btn-sm">
+                    Enter Admin Control Panel <i class="bi bi-box-arrow-in-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Beautiful statistics grid block -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-3 mb-5">
+        <div class="col">
+            <div class="p-3 bg-white rounded-4 h-100 card-custom border-start border-primary border-5 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted text-uppercase tracking-wider font-semibold small mb-1" style="font-size: 10px;">Admissions</h6>
+                        <h3 class="mb-0 text-sky-950 font-bold"><%= stats.total_admissions %></h3>
+                    </div>
+                    <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary">
+                        <i class="bi bi-file-person fs-4"></i>
+                    </div>
+                </div>
+                <div class="text-xs text-muted mt-3 pt-2 border-top">
+                    <span class="text-emerald-600 font-bold"><i class="bi bi-arrow-up-right"></i> <%= stats.paid_admissions %> Paid</span> files
+                </div>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="p-3 bg-white rounded-4 h-100 card-custom border-start border-emerald-500 border-5 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted text-uppercase tracking-wider font-semibold small mb-1" style="font-size: 10px;">Cleared Escrows</h6>
+                        <h3 class="mb-0 text-emerald-950 font-bold"><%= stats.paid_admissions %></h3>
+                    </div>
+                    <div class="bg-emerald-100 p-2 rounded-3 text-emerald-800">
+                        <i class="bi bi-currency-dollar fs-4"></i>
+                    </div>
+                </div>
+                <div class="text-xs text-muted mt-3 pt-2 border-top">
+                    <span class="text-warning font-bold"><i class="bi bi-clock-history"></i> <%= stats.pending_admissions %> Pending</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="p-3 bg-white rounded-4 h-100 card-custom border-start border-warning border-5 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted text-uppercase tracking-wider font-semibold small mb-1" style="font-size: 10px;">Registered Alumni</h6>
+                        <h3 class="mb-0 text-amber-950 font-bold"><%= stats.registered_alumni %></h3>
+                    </div>
+                    <div class="bg-warning bg-opacity-15 p-2 rounded-3 text-warning">
+                        <i class="bi bi-people-fill fs-4 text-dark"></i>
+                    </div>
+                </div>
+                <div class="text-xs text-muted mt-3 pt-2 border-top">
+                    <span>Awaiting moderation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="p-3 bg-white rounded-4 h-100 card-custom border-start border-info border-5 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted text-uppercase tracking-wider font-semibold small mb-1" style="font-size: 10px;">School Faculty</h6>
+                        <h3 class="mb-0 text-info-emphasis font-bold"><%= stats.total_staff %></h3>
+                    </div>
+                    <div class="bg-info bg-opacity-15 p-2 rounded-3 text-info">
+                        <i class="bi bi-person-badge-fill fs-4"></i>
+                    </div>
+                </div>
+                <div class="text-xs text-muted mt-3 pt-2 border-top">
+                    <a href="/website/staff-directory" class="text-decoration-none text-sky-700 font-bold hover-text-sky-900">View Directory <i class="bi bi-arrow-right-short"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="p-3 bg-white rounded-4 h-100 card-custom border-start border-dark border-5 d-flex flex-column justify-content-between">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="text-muted text-uppercase tracking-wider font-semibold small mb-1" style="font-size: 10px;">Active Notices</h6>
+                        <h3 class="mb-0 text-slate-900 font-bold"><%= stats.active_news %></h3>
+                    </div>
+                    <div class="bg-dark bg-opacity-10 p-2 rounded-3 text-dark">
+                        <i class="bi bi-megaphone-fill fs-4"></i>
+                    </div>
+                </div>
+                <div class="text-xs text-muted mt-3 pt-2 border-top">
+                    <span>Upcoming events: <%= stats.upcoming_events %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js line chart visualization for website visits and admission interactions -->
+    <div class="card card-custom border-0 shadow-sm bg-white rounded-4 mb-5 overflow-hidden">
+        <div class="bg-sky-custom" style="height: 6px;"></div>
+        <div class="p-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                <div>
+                    <h4 class="text-sky-950 font-serif mb-1"><i class="bi bi-graph-up-arrow text-sky-custom me-2"></i> Website Traffic & Admissions Form Interactions</h4>
+                    <p class="text-muted small mb-0">Dynamic 7-day trend analysis of daily visitor visits and online applications.</p>
+                </div>
+                <div class="d-flex gap-2 mt-2 mt-sm-0">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill"><i class="bi bi-circle-fill text-primary small me-1"></i> Daily Visits</span>
+                    <span class="badge bg-warning bg-opacity-15 text-warning-emphasis px-3 py-2 rounded-pill"><i class="bi bi-circle-fill text-warning small me-1"></i> Form Submissions</span>
+                </div>
+            </div>
+            <div style="position: relative; height: 320px; width: 100%;">
+                <canvas id="trendsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('trendsChart').getContext('2d');
+        
+        const labels = [
+            <% daily_trends.forEach(function(trend, idx) { %>
+                "<%= trend.day %>"<%= idx < daily_trends.length - 1 ? ',' : '' %>
+            <% }) %>
+        ];
+        
+        const visitsData = [
+            <% daily_trends.forEach(function(trend, idx) { %>
+                <%= trend.visits %><%= idx < daily_trends.length - 1 ? ',' : '' %>
+            <% }) %>
+        ];
+        
+        const admissionsData = [
+            <% daily_trends.forEach(function(trend, idx) { %>
+                <%= trend.admissions %><%= idx < daily_trends.length - 1 ? ',' : '' %>
+            <% }) %>
+        ];
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Daily Website Visits',
+                        data: visitsData,
+                        borderColor: '#0284c7', // Sky 600
+                        backgroundColor: 'rgba(2, 132, 199, 0.08)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#0284c7',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        yAxisID: 'yVisits'
+                    },
+                    {
+                        label: 'Admission Submissions',
+                        data: admissionsData,
+                        borderColor: '#f59e0b', // Amber 500
+                        backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: '#f59e0b',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        yAxisID: 'yAdmissions'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: '#1e293b',
+                        titleColor: '#ffffff',
+                        bodyColor: '#cbd5e1',
+                        padding: 12,
+                        borderRadius: 8,
+                        titleFont: {
+                            family: 'Inter, sans-serif',
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            family: 'Inter, sans-serif'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter, sans-serif',
+                                size: 11
+                            },
+                            color: '#64748b'
+                        }
+                    },
+                    yVisits: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        grid: {
+                            color: 'rgba(226, 232, 240, 0.6)'
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter, sans-serif',
+                                size: 11
+                            },
+                            color: '#0284c7'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Website Visits',
+                            font: {
+                                family: 'Inter, sans-serif',
+                                weight: 'bold',
+                                size: 11
+                            },
+                            color: '#0284c7'
+                        }
+                    },
+                    yAdmissions: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: {
+                            drawOnChartArea: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter, sans-serif',
+                                size: 11
+                            },
+                            color: '#f59e0b',
+                            stepSize: 1,
+                            precision: 0
+                        },
+                        title: {
+                            display: true,
+                            text: 'Admission Submissions',
+                            font: {
+                                family: 'Inter, sans-serif',
+                                weight: 'bold',
+                                size: 11
+                            },
+                            color: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
+
+    <!-- 3. Dynamic sliders section (Optional Hero Demonstration) -->
+    <% if (slides && slides.length > 0) { %>
+    <div class="mb-5">
+        <h3 class="mb-4 text-sky-950 border-bottom pb-2">Active Hero Carousel Slides</h3>
+        <div id="heroCarousel" class="carousel slide rounded-4 overflow-hidden shadow-sm" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <% slides.forEach(function(slide, idx) { %>
+                <div class="carousel-item <%= idx === 0 ? 'active' : '' %>" style="height: 380px;">
+                    <img src="<%= slide.image %>" class="d-block w-100 h-100" style="object-fit: cover;" alt="Banner Slide">
+                    <div class="carousel-caption d-none d-md-block p-4 rounded-4" style="background: rgba(15, 23, 42, 0.75); text-align: left; left: 5%; right: 5%; bottom: 10%;">
+                        <span class="badge bg-warning text-dark mb-2">SLIDE <%= slide.order %></span>
+                        <h2 class="text-white"><%= slide.title %></h2>
+                        <p class="mb-0 text-white-50"><%= slide.subtitle %></p>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+    <% } %>
+
+    <!-- 4. Double columns for Events and News list -->
+    <div class="row g-5">
+        <!-- News Column -->
+        <div class="col-lg-6">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0 text-sky-950"><i class="bi bi-chat-left-quote text-sky-custom"></i> Latest Bulletins</h3>
+                <a href="/admin?tab=announcements" class="btn btn-outline-primary btn-sm rounded-pill"><i class="bi bi-plus-circle"></i> Add Notice</a>
+            </div>
+            
+            <% if (announcements && announcements.length > 0) { %>
+                <div class="d-flex flex-column gap-3">
+                    <% announcements.forEach(function(item) { %>
+                        <div class="p-3 bg-white border rounded-4 shadow-xs d-flex gap-3 align-items-start">
+                            <% if (item.image) { %>
+                                <img src="<%= item.image %>" class="rounded-3" style="width: 80px; height: 80px; object-fit: cover;" alt="News Cover">
+                            <% } else { %>
+                                <div class="bg-secondary bg-opacity-10 text-muted rounded-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                    <i class="bi bi-image fs-4"></i>
+                                </div>
+                            <% } %>
+                            <div class="flex-grow-1">
+                                <span class="badge bg-secondary-subtle text-secondary uppercase mb-1" style="font-size: 10px;"><%= item.category %></span>
+                                <h5 class="text-xs mb-1" style="font-size: 14px; font-weight: 600;"><%= item.title %></h5>
+                                <p class="text-muted mb-2 small text-truncate-2" style="font-size: 11.5px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"><%= item.excerpt %></p>
+                                <span class="text-slate-400 small" style="font-size: 11px;"><i class="bi bi-calendar"></i> Published on <%= item.date %></span>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="text-center p-5 bg-white border rounded-4 text-muted small">
+                    <i class="bi bi-file-earmark-text-fill fs-2 text-slate-300"></i>
+                    <p class="mt-2">No active announcements. Publish some using the Admin Panel.</p>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Events Column -->
+        <div class="col-lg-6">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0 text-sky-950"><i class="bi bi-calendar2-week-fill text-warning"></i> School Events</h3>
+                <a href="/admin?tab=events" class="btn btn-outline-warning btn-sm rounded-pill"><i class="bi bi-plus-circle"></i> Add Event</a>
+            </div>
+
+            <% if (events && events.length > 0) { %>
+                <div class="d-flex flex-column gap-3">
+                    <% events.forEach(function(event) { %>
+                        <div class="p-3 bg-white border rounded-4 shadow-xs d-flex gap-3 align-items-start">
+                            <div class="text-center bg-sky-custom text-white p-2.5 rounded-3 d-flex flex-column justify-content-center align-items-center" style="width: 65px; height: 65px;">
+                                <span class="fw-bold fs-5 lh-1"><%= new Date(event.date).getDate() %></span>
+                                <span class="text-uppercase lh-1" style="font-size: 10px;"><%= new Date(event.date).toLocaleDateString('en-US', { month: 'short' }) %></span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <span class="badge bg-warning-subtle text-warning-emphasis uppercase mb-1" style="font-size: 9px;"><%= event.category %></span>
+                                <h5 class="text-xs mb-1" style="font-size: 14px; font-weight: 600;"><%= event.title %></h5>
+                                <div class="d-flex flex-wrap gap-2 text-muted small" style="font-size: 11.5px;">
+                                    <span><i class="bi bi-clock"></i> <%= event.time %></span>
+                                    <span><i class="bi bi-geo-alt"></i> <%= event.location %></span>
+                                    <span><i class="bi bi-cash"></i> <%= event.cost %></span>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="text-center p-5 bg-white border rounded-4 text-muted small">
+                    <i class="bi bi-calendar-x fs-2 text-slate-300"></i>
+                    <p class="mt-2">No upcoming school calendar events listed.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>

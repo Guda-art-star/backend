@@ -1,0 +1,6 @@
+{
+  "name": "St. John's College Mpigi Administration Portal",
+  "description": "Administrative overview, student admissions portal, and alumni memory registry for St. John's College Mpigi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

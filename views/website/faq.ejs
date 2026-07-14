@@ -1,0 +1,51 @@
+<%- include('../partials/header', { title: "St. John's College - Frequently Asked Questions", activePage: 'faq' }) %>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            
+            <div class="text-center mb-5">
+                <i class="bi bi-patch-question text-sky-custom display-4"></i>
+                <h1 class="display-6 mt-2 mb-2 font-serif text-sky-950">Frequently Asked Questions</h1>
+                <p class="lead text-muted small text-xs max-w-xl mx-auto" style="font-size: 14px;">
+                    Quickly find answers to admission schedules, boarding circulars, and escrow fee payments in SJC's registry.
+                </p>
+            </div>
+
+            <% if (typeof categorized_faqs !== 'undefined' && Object.keys(categorized_faqs).length > 0) { %>
+                <% Object.entries(categorized_faqs).forEach(function([category, faqs], catIdx) { %>
+                    <div class="mb-5">
+                        <h4 class="text-sky-custom border-bottom pb-2 mb-3"><i class="bi bi-tag-fill"></i> <%= category %></h4>
+                        
+                        <div class="accordion border-0 shadow-xs rounded-4 overflow-hidden" id="accordion<%= catIdx %>">
+                            <% faqs.forEach(function(faq, faqIdx) { %>
+                                <div class="accordion-item border-light-subtle">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button <%= faqIdx > 0 ? 'collapsed' : '' %> py-3 text-sky-950 font-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFaq<%= faq.id %>" aria-expanded="<%= faqIdx === 0 ? 'true' : 'false' %>" style="font-size: 13px;">
+                                            <%= faq.question %>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFaq<%= faq.id %>" class="accordion-collapse collapse <%= faqIdx === 0 ? 'show' : '' %>" data-bs-parent="#accordion<%= catIdx %>">
+                                        <div class="accordion-body text-muted leading-relaxed small" style="font-size: 12px; background-color: #fafbfc;">
+                                            <%- faq.answer.replace(/\r\n|\n/g, '<br>') %>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="text-center p-5 bg-white border rounded-4 text-muted small">
+                    <i class="bi bi-question-circle-fill fs-2 text-slate-300"></i>
+                    <p class="mt-2">No Frequently Asked Questions are published yet.</p>
+                </div>
+            <% } %>
+
+        </div>
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>

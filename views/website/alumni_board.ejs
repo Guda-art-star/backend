@@ -1,0 +1,113 @@
+<%- include('../partials/header', { title: "SJC Alumni Memory & Registry Board", activePage: 'alumni' }) %>
+
+<div class="container py-5">
+
+    <!-- Header banner -->
+    <div class="p-5 bg-sky-950 text-white rounded-4 shadow-sm mb-5 text-center">
+        <i class="bi bi-mortarboard-fill text-warning" style="font-size: 48px; color: #fbbf24 !important;"></i>
+        <h1 class="display-6 mt-2 mb-2 font-serif text-white">SJC Alumni Registry & Memory Board</h1>
+        <p class="lead text-white-50 max-w-2xl mx-auto text-xs small" style="font-size: 14px;">
+            Connecting generations of graduates of St. John's College Mpigi. Share your career profile and precious memories of SJC days.
+        </p>
+    </div>
+
+    <div class="row g-5">
+        
+        <!-- Registration Form Column -->
+        <div class="col-lg-4">
+            <div class="p-4 bg-white rounded-4 border shadow-xs position-sticky" style="top: 100px;">
+                <h4 class="text-sky-950 mb-3 border-bottom pb-2">Join SJC Alumni Board</h4>
+                <p class="text-xs text-muted mb-4">
+                    Fill out the form below to register your graduation. All submissions go through brief administrator moderation.
+                </p>
+
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="name" class="form-label font-semibold small">Full Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="graduation_year" class="form-label font-semibold small">Graduation Year <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="graduation_year" name="graduation_year" placeholder="e.g., 2018" min="2000" max="2030" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="current_profession" class="form-label font-semibold small">Current Profession</label>
+                        <input type="text" class="form-control" id="current_profession" name="current_profession" placeholder="e.g., Software Engineer at Google, Medical Officer">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="quote" class="form-label font-semibold small">Senior Quote</label>
+                        <input type="text" class="form-control" id="quote" name="quote" placeholder="Your senior quote or favorite school memory line...">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="memory_text" class="form-label font-semibold small">Precious SJC Memories</label>
+                        <textarea class="form-control" id="memory_text" name="memory_text" rows="4" placeholder="Tell us about your times at St. John's College..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="photo" class="form-label font-semibold small">Upload Photo</label>
+                        <input type="file" class="form-control" id="photo" name="photo">
+                    </div>
+
+                    <button type="submit" class="btn btn-sky-custom w-100 py-2.5 rounded-3 text-uppercase font-bold mt-3" style="font-size: 11px;">
+                        Submit Profile for Verification
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Alumni List Board Column -->
+        <div class="col-lg-8">
+            <h3 class="text-sky-950 mb-4 border-bottom pb-2">SJC Alumni Hall of Fame</h3>
+            
+            <% if (alumni_list && alumni_list.length > 0) { %>
+                <div class="row g-4">
+                    <% alumni_list.forEach(function(person) { %>
+                        <div class="col-md-6">
+                            <div class="card h-100 card-custom border-0 shadow-xs overflow-hidden bg-white p-4">
+                                <div class="d-flex gap-3 align-items-start mb-3">
+                                    <% if (person.photo) { %>
+                                        <img src="<%= person.photo %>" class="rounded-circle border border-warning border-2" style="width: 60px; height: 60px; object-fit: cover; border-color: #fbbf24 !important;" alt="<%= person.name %>">
+                                    <% } else { %>
+                                        <div class="bg-sky-50 text-sky-custom rounded-circle border border-sky-100 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="bi bi-person-fill fs-3"></i>
+                                        </div>
+                                    <% } %>
+                                    <div>
+                                        <h5 class="text-slate-800 mb-0 font-bold" style="font-size: 15px;"><%= person.name %></h5>
+                                        <span class="badge bg-warning-subtle text-warning-emphasis uppercase" style="font-size: 9px; background-color: #fef3c7; color: #78350f;"><%= person.graduation_year %></span>
+                                        <% if (person.current_profession) { %>
+                                            <p class="text-xs text-muted mb-0 mt-1"><i class="bi bi-briefcase"></i> <%= person.current_profession %></p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                
+                                <% if (person.quote) { %>
+                                    <div class="p-3 bg-light rounded-3 italic text-muted small mb-3 border-start border-warning border-3" style="font-size: 11px; border-left-color: #fbbf24 !important;">
+                                        "<%= person.quote %>"
+                                    </div>
+                                <% } %>
+
+                                <% if (person.memory_text) { %>
+                                    <p class="text-muted small mb-0 leading-relaxed text-truncate-3" style="font-size: 11px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"><%= person.memory_text %></p>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="text-center p-5 bg-white border rounded-4 text-muted small">
+                    <i class="bi bi-journal-richtext fs-1 text-slate-300"></i>
+                    <p class="mt-2">No moderated alumni records are published yet.</p>
+                </div>
+            <% } %>
+        </div>
+
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>

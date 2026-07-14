@@ -1,0 +1,127 @@
+<%- include('../partials/header', { title: "SJC Admission Gateway Checkout", activePage: 'apply' }) %>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            
+            <div class="card card-custom border-0 shadow-lg overflow-hidden">
+                
+                <!-- Card Header -->
+                <div class="bg-sky-950 text-white p-4 text-center">
+                    <span class="text-warning-emphasis uppercase tracking-widest font-black text-xs d-block mb-1" style="font-size: 10px; font-weight: 800; color: #fbbf24;">Secure Application Gateway</span>
+                    <h3 class="mb-0 text-white font-serif">SJC Escrow Payment</h3>
+                </div>
+
+                <!-- Card Body -->
+                <div class="p-4 p-md-5 bg-white">
+                    
+                    <div class="text-center mb-4">
+                        <span class="text-muted d-block small mb-1">Required Handling Fee</span>
+                        <h1 class="display-6 font-black text-slate-800">50,000 UGX</h1>
+                        <span class="badge bg-secondary-subtle text-secondary font-bold rounded-pill uppercase px-3 py-1.5" style="font-size: 11px;">
+                            Reference: <%= application.payment_reference %>
+                        </span>
+                    </div>
+
+                    <!-- Invoice metadata -->
+                    <div class="p-3 bg-light rounded-4 border mb-4">
+                        <div class="d-flex justify-content-between mb-2 small text-muted">
+                            <span>Student Name:</span>
+                            <span class="font-bold text-slate-900"><%= application.first_name %> <%= application.last_name %></span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 small text-muted">
+                            <span>Target Enrollment:</span>
+                            <span class="font-bold text-slate-900">
+                                <% 
+                                    var classes = {
+                                        'S1': 'Senior One (S.1)',
+                                        'S2': 'Senior Two (S.2)',
+                                        'S3': 'Senior Three (S.3)',
+                                        'S4': 'Senior Four (S.4)',
+                                        'S5_ARTS': 'Senior Five Arts (S.5)',
+                                        'S5_SCI': 'Senior Five Sciences (S.5)',
+                                        'S6_ARTS': 'Senior Six Arts (S.6)',
+                                        'S6_SCI': 'Senior Six Sciences (S.6)'
+                                    };
+                                %>
+                                <%= classes[application.class_applied] || application.class_applied %>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 small text-muted">
+                            <span>Payment Channel:</span>
+                            <span class="font-bold text-slate-900 text-uppercase">
+                                <% 
+                                    var gateways = {
+                                        'mtn': 'MTN Mobile Money',
+                                        'airtel': 'Airtel Money',
+                                        'centenary': 'Centenary Bank',
+                                        'stanbic': 'Stanbic Bank'
+                                    };
+                                %>
+                                <%= gateways[application.payment_method] || application.payment_method %>
+                            </span>
+                        </div>
+                        <% if (application.payment_phone) { %>
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>Mobile MM Phone:</span>
+                            <span class="font-bold text-slate-900"><%= application.payment_phone %></span>
+                        </div>
+                        <% } %>
+                    </div>
+
+                    <!-- USSD Instructions -->
+                    <div class="p-4 bg-dark text-white rounded-4 border border-secondary mb-4">
+                        <span class="text-warning text-xs font-bold uppercase tracking-wider block mb-2" style="color: #fbbf24;">Instructions for Transfer:</span>
+                        <div class="d-flex justify-content-between border-bottom border-secondary pb-2 mb-2">
+                            <span class="text-white-50 small">Channel Code/ID:</span>
+                            <span class="font-mono text-warning font-bold" style="color: #fbbf24;"><%= biller_instructions.code %></span>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom border-secondary pb-2 mb-2">
+                            <span class="text-white-50 small">Escrow Account:</span>
+                            <span class="small font-bold text-white"><%= biller_instructions.biller_name %></span>
+                        </div>
+                        <div class="d-flex justify-content-between small">
+                            <span class="text-white-50">Reference Narrative:</span>
+                            <span class="font-mono text-info font-bold" style="color: #38bdf8;"><%= application.payment_reference %></span>
+                        </div>
+                    </div>
+
+                    <!-- Safety Warning -->
+                    <div class="text-center p-3 alert alert-info rounded-3 text-info-emphasis mb-4 text-xs" style="font-size: 12px;">
+                        <i class="bi bi-shield-lock-fill"></i> SJC uses automated bank integrations. Please make sure the narrative reference matches your <strong><%= application.payment_reference %></strong> key precisely.
+                    </div>
+
+                    <!-- Payment state trigger/Simulation -->
+                    <% if (application.payment_status === 'paid') { %>
+                        <div class="alert alert-success text-center border-0 p-3 rounded-3 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-patch-check-fill fs-4 text-success"></i>
+                            <div>
+                                <strong class="uppercase d-block mb-0.5" style="color: #15803d;">Fees Verified & Paid!</strong>
+                                <span class="small text-muted">Your application is completely processed.</span>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="/website/apply-online/receipt/<%= application.application_id %>" class="btn btn-dark w-full py-2.5 rounded-3">
+                                View Application Receipt <i class="bi bi-printer"></i>
+                            </a>
+                        </div>
+                    <% } else { %>
+                        <!-- Payment simulation area -->
+                        <form method="POST" class="mt-4">
+                            <button type="submit" class="btn btn-sky-custom btn-lg w-100 py-3 rounded-3 text-uppercase font-extrabold" style="font-size: 12px; font-weight: 800; letter-spacing: 0.5px;">
+                                Simulate Instant Transfer Clearance <i class="bi bi-qr-code-scan"></i>
+                            </button>
+                        </form>
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>

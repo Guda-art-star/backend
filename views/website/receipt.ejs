@@ -1,0 +1,123 @@
+<%- include('../partials/header', { title: "SJC Admission - Payment Receipt", activePage: 'apply' }) %>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            
+            <div class="p-4 mb-3 d-print-none d-flex justify-content-between">
+                <a href="/website" class="btn btn-outline-secondary btn-sm rounded-pill">
+                    <i class="bi bi-chevron-left"></i> Return to Dashboard
+                </a>
+                <button onclick="window.print()" class="btn btn-dark btn-sm rounded-pill px-4">
+                    <i class="bi bi-printer-fill"></i> Print Receipt / Download PDF
+                </button>
+            </div>
+
+            <div class="bg-white rounded-4 border p-5 shadow-sm" id="printable-receipt" style="border: 2px dashed #cbd5e1 !important;">
+                
+                <!-- Header Stamp -->
+                <div class="text-center border-bottom pb-4 mb-4">
+                    <i class="bi bi-mortarboard-fill text-sky-custom" style="font-size: 50px;"></i>
+                    <h2 class="text-uppercase text-sky-950 mt-2 mb-1" style="font-size: 24px; letter-spacing: 0.5px;">ST. JOHN'S COLLEGE MPIGI</h2>
+                    <p class="text-muted text-xs small mb-0">Mpigi Town, Kampala-Masaka Road, Uganda</p>
+                    <p class="text-warning font-semibold italic small mb-0">"Godliness & Hardwork"</p>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-6">
+                        <span class="text-xs text-muted block uppercase">Receipt Issued To:</span>
+                        <h5 class="text-slate-800 mb-0 font-bold"><%= app.first_name %> <%= app.last_name %></h5>
+                        <p class="text-muted small mb-0">
+                            Class: 
+                            <% 
+                                var classes = {
+                                    'S1': 'Senior One (S.1)',
+                                    'S2': 'Senior Two (S.2)',
+                                    'S3': 'Senior Three (S.3)',
+                                    'S4': 'Senior Four (S.4)',
+                                    'S5_ARTS': 'Senior Five Arts (S.5)',
+                                    'S5_SCI': 'Senior Five Sciences (S.5)',
+                                    'S6_ARTS': 'Senior Six Arts (S.6)',
+                                    'S6_SCI': 'Senior Six Sciences (S.6)'
+                                };
+                            %>
+                            <%= classes[app.class_applied] || app.class_applied %>
+                        </p>
+                        <p class="text-muted small">Prev: <%= app.previous_school %></p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <span class="text-xs text-muted block uppercase">Invoice Metadata:</span>
+                        <h6 class="text-slate-800 mb-0 font-bold">Ref: <%= app.payment_reference %></h6>
+                        <p class="text-muted small mb-0">Date: <%= new Date(app.created_at).toLocaleString('en-US', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) %></p>
+                        <span class="badge bg-success-subtle text-success border border-success font-bold mt-1 px-3 py-1">FULLY PAID</span>
+                    </div>
+                </div>
+
+                <!-- Ledger list table -->
+                <div class="table-responsive mb-4">
+                    <table class="table table-bordered border-light-subtle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Item Description</th>
+                                <th class="text-end" style="width: 150px;">Amount Paid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Online Application & Admission Fee</strong>
+                                    <div class="text-xs text-muted">Includes processing, document vetting, and exam placement sheets.</div>
+                                </td>
+                                <td class="text-end font-monospace text-slate-800">50,000 UGX</td>
+                            </tr>
+                            <tr class="table-light">
+                                <td class="text-end fw-bold">Grand Total Paid:</td>
+                                <td class="text-end fw-bold text-emerald-700 font-monospace">50,000 UGX</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Payment Details metadata -->
+                <div class="row g-3 mb-5 small text-muted">
+                    <div class="col-md-6">
+                        <span class="d-block fw-bold text-dark mb-1">Payer Details:</span>
+                        <span>Parent Name: <%= app.parent_name %></span><br>
+                        <span>Parent Phone: <%= app.parent_phone %></span><br>
+                        <span>Parent Email: <%= app.parent_email || "N/A" %></span>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <span class="d-block fw-bold text-dark mb-1">Transaction Source:</span>
+                        <span>Gateway: 
+                            <% 
+                                var gateways = {
+                                    'mtn': 'MTN Mobile Money',
+                                    'airtel': 'Airtel Money',
+                                    'centenary': 'Centenary Bank',
+                                    'stanbic': 'Stanbic Bank'
+                                };
+                            %>
+                            <%= gateways[app.payment_method] || app.payment_method %>
+                        </span><br>
+                        <span>Origin Phone: <%= app.payment_phone || "N/A" %></span><br>
+                        <span>Reference: <%= app.payment_reference %></span>
+                    </div>
+                </div>
+
+                <!-- Signoff Stamp -->
+                <div class="border-top pt-4 text-center">
+                    <p class="text-xs text-muted italic mb-4">"This is a system generated receipt and does not require a physical signature. Your application dossier has been queued for registrar review."</p>
+                    <div class="d-inline-block border border-success border-2 p-3 text-success fw-bold text-uppercase tracking-wider rounded-3 animate-pulse" style="font-size: 11px; transform: rotate(-3deg); color: #16a34a !important; border-color: #16a34a !important;">
+                        <i class="bi bi-shield-fill-check"></i> SJC Mpigi Registrar Approved
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,194 @@
+<%- include('../partials/header', { title: "SJC Mpigi - Online Admission Registration", activePage: 'apply' }) %>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            
+            <!-- Breadcrumbs / Banner -->
+            <div class="p-4 bg-sky-950 text-white rounded-4 shadow-sm mb-5 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <h2 class="h3 mb-1"><i class="bi bi-file-earmark-check-fill text-warning"></i> SJC Online Admission</h2>
+                    <p class="mb-0 text-white-50 text-xs small">Molding competent and spiritually sound leaders under Godliness & Hardwork.</p>
+                </div>
+                <div class="text-md-end">
+                    <span class="badge bg-warning text-dark px-3 py-2 uppercase font-extrabold" style="font-size: 11px;">
+                        Application Fee: 50,000 UGX
+                    </span>
+                </div>
+            </div>
+
+            <!-- Form Body -->
+            <div class="bg-white rounded-4 border p-4 p-md-5 shadow-xs">
+                
+                <h3 class="mb-4 text-sky-950 border-bottom pb-2">Student & Parent Registration Form</h3>
+                
+                <form method="POST" enctype="multipart/form-data">
+                    
+                    <div class="row g-4">
+                        <!-- Demographics Panel -->
+                        <div class="col-md-6">
+                            <h5 class="text-sky-custom mb-3"><i class="bi bi-person-fill"></i> Student Demographic Data</h5>
+                            
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label font-semibold small">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter first name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label font-semibold small">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter last name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="date_of_birth" class="form-label font-semibold small">Date of Birth <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="gender" class="form-label font-semibold small">Gender <span class="text-danger">*</span></label>
+                                <select class="form-select" id="gender" name="gender" required>
+                                    <option value="" disabled selected>Select student gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- School details -->
+                        <div class="col-md-6">
+                            <h5 class="text-sky-custom mb-3"><i class="bi bi-mortarboard-fill"></i> Enrollment Targets</h5>
+                            
+                            <div class="mb-3">
+                                <label for="class_applied" class="form-label font-semibold small">Class Applied For <span class="text-danger">*</span></label>
+                                <select class="form-select" id="class_applied" name="class_applied" required>
+                                    <option value="" disabled selected>Select targeted class</option>
+                                    <option value="S1">Senior One (S.1)</option>
+                                    <option value="S2">Senior Two (S.2)</option>
+                                    <option value="S3">Senior Three (S.3)</option>
+                                    <option value="S4">Senior Four (S.4)</option>
+                                    <option value="S5_ARTS">Senior Five Arts (S.5)</option>
+                                    <option value="S5_SCI">Senior Five Sciences (S.5)</option>
+                                    <option value="S6_ARTS">Senior Six Arts (S.6)</option>
+                                    <option value="S6_SCI">Senior Six Sciences (S.6)</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="previous_school" class="form-label font-semibold small">Previous School <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="previous_school" name="previous_school" placeholder="Previous Primary/Secondary School" required>
+                            </div>
+
+                            <div class="mt-4 p-3 bg-light rounded-3 border">
+                                <span class="font-bold text-dark text-xs block mb-1">ℹ️ Entry Grade Guidelines:</span>
+                                <ul class="text-xs text-muted mb-0 ps-3">
+                                    <li>Provide PLE Aggregate (Best 4 score) for Senior 1 applicants.</li>
+                                    <li>Provide UCE Division / Grade for Senior 5/6 A-level applicants.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 text-slate-200">
+
+                        <!-- Parent/Guardian Details -->
+                        <div class="col-md-12">
+                            <h5 class="text-sky-custom mb-3"><i class="bi bi-telephone-outbound-fill"></i> Parent / Guardian Contact Details</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="parent_name" class="form-label font-semibold small">Parent/Guardian Full Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="parent_name" name="parent_name" placeholder="Parent's full name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="parent_phone" class="form-label font-semibold small">Parent Phone Number <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="parent_phone" name="parent_phone" placeholder="e.g., +256772123456" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="parent_email" class="form-label font-semibold small">Parent Email Address</label>
+                                        <input type="email" class="form-control" id="parent_email" name="parent_email" placeholder="parent@example.com">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="parent_address" class="form-label font-semibold small">Parent Residential Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="parent_address" name="parent_address" placeholder="Residential Town, District" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 text-slate-200">
+
+                        <!-- Document and File attachments -->
+                        <div class="col-md-6">
+                            <h5 class="text-sky-custom mb-3"><i class="bi bi-file-earmark-arrow-up-fill"></i> Upload Academic Records</h5>
+                            
+                            <div class="mb-3">
+                                <label for="ple_aggregates" class="form-label font-semibold small">PLE Aggregates (if S.1 entry)</label>
+                                <input type="number" class="form-control" id="ple_aggregates" name="ple_aggregates" placeholder="Best 4 aggregate (4 - 36)" min="4" max="36">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="uce_division" class="form-label font-semibold small">UCE Division (if A-Level S.5/6 entry)</label>
+                                <input type="text" class="form-control" id="uce_division" name="uce_division" placeholder="e.g., Division 1, Grade 12">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="result_slip_file" class="form-label font-semibold small">Academic Result Slip</label>
+                                <input type="file" class="form-control" id="result_slip_file" name="result_slip_file">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="recommendation_file" class="form-label font-semibold small">Recommendation Letter</label>
+                                <input type="file" class="form-control" id="recommendation_file" name="recommendation_file">
+                            </div>
+                        </div>
+
+                        <!-- Escrow Payment parameters -->
+                        <div class="col-md-6">
+                            <h5 class="text-sky-custom mb-3"><i class="bi bi-wallet2"></i> Admission Escrow Payment</h5>
+                            <p class="text-xs text-muted leading-relaxed">
+                                A non-refundable application handling fee of <strong>50,000 UGX</strong> is required. Select your preferred gateway below. A unique reference number will be generated for your registration.
+                            </p>
+                            
+                            <div class="mb-3">
+                                <label for="payment_method" class="form-label font-semibold small">Payment Gateway <span class="text-danger">*</span></label>
+                                <select class="form-select" id="payment_method" name="payment_method" required>
+                                    <option value="" disabled selected>Select gateway</option>
+                                    <option value="mtn">MTN Mobile Money</option>
+                                    <option value="airtel">Airtel Money</option>
+                                    <option value="centenary">Centenary Bank</option>
+                                    <option value="stanbic">Stanbic Bank</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="payment_phone" class="form-label font-semibold small">Payment Phone Number</label>
+                                <input type="text" class="form-control" id="payment_phone" name="payment_phone" placeholder="e.g., MoMo sender number if mobile money">
+                            </div>
+                            
+                            <div class="alert alert-warning-subtle text-warning-emphasis text-xs d-flex align-items-start gap-2 rounded-3 border border-warning mt-3">
+                                <i class="bi bi-info-circle-fill fs-5 mt-0.5 text-warning"></i>
+                                <div>
+                                    Once you submit this form, you will be redirected to the secure portal checkout to approve the fee transaction instantly.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <button type="submit" class="btn btn-sky-custom btn-lg px-5 py-3 rounded-3 text-uppercase shadow-md" style="font-size: 13px; font-weight: 800; letter-spacing: 0.5px;">
+                            Review & Create Payment Account <i class="bi bi-arrow-right-short"></i>
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>

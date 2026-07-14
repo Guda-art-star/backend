@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : "St. John's College Mpigi - Portal" %></title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        h1, h2, h3, h4, h5, h6, .display-font {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .bg-sky-custom {
+            background-color: #0ea5e9 !important; /* Sky 500 equivalent */
+        }
+        .btn-sky-custom {
+            background-color: #0ea5e9;
+            color: white;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-sky-custom:hover {
+            background-color: #0284c7;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+        }
+        .card-custom {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .card-custom:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+        .admin-badge {
+            background-color: rgba(14, 165, 233, 0.1);
+            color: #0369a1;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+        .text-xs { font-size: 0.75rem; }
+        .text-sky-950 { color: #082f49; }
+        .text-emerald-600 { color: #059669; }
+        .text-emerald-950 { color: #022c22; }
+        .text-amber-950 { color: #451a03; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-black { font-weight: 900; }
+        .text-uppercase { text-transform: uppercase; }
+        .w-full { width: 100%; }
+        .rounded-4 { border-radius: 1rem !important; }
+        .shadow-xs { box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+    </style>
+    <%- typeof extraCss !== 'undefined' ? extraCss : '' %>
+</head>
+<body>
+
+    <!-- 1. Top bar matching current layout -->
+    <div class="bg-dark text-light py-2 px-4 d-none d-md-flex justify-content-between align-items-center border-bottom border-secondary" style="font-size: 11px;">
+        <div class="d-flex gap-3">
+            <span><i class="bi bi-geo-alt-fill text-warning"></i> Mpigi Town, Uganda</span>
+            <span><i class="bi bi-envelope-fill text-info"></i> info@stjohnscollegempigi.ac.ug</span>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+            <span class="text-white-50 uppercase font-bold">Follow Us:</span>
+            <a href="#" class="text-warning text-decoration-none"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-warning text-decoration-none"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="text-warning text-decoration-none"><i class="bi bi-twitter"></i></a>
+        </div>
+    </div>
+
+    <!-- 2. Main Navigation Bar with Sky 500 Background -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-sky-custom sticky-top py-3 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/website">
+                <i class="bi bi-mortarboard-fill fs-3 text-warning"></i>
+                <div class="d-flex flex-column">
+                    <span class="lh-1 block text-uppercase" style="font-size: 16px;">ST. JOHN'S COLLEGE</span>
+                    <span class="lh-1 block text-warning text-uppercase" style="font-size: 11px; letter-spacing: 2px;">MPIGI BACKEND</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link px-3 <%= activePage === 'dashboard' ? 'active' : '' %>" href="/website"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 <%= activePage === 'alumni' ? 'active' : '' %>" href="/website/alumni-board"><i class="bi bi-people-fill"></i> Alumni Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 <%= activePage === 'staff' ? 'active' : '' %>" href="/website/staff-directory"><i class="bi bi-person-badge-fill"></i> Staff Directory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 <%= activePage === 'faq' ? 'active' : '' %>" href="/website/faqs"><i class="bi bi-question-circle"></i> FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 text-warning font-semibold" href="/admin">
+                            <i class="bi bi-shield-lock-fill"></i> Control Panel
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-warning text-dark font-extrabold px-4 py-2 text-uppercase shadow-sm hover-scale rounded-3" href="/website/apply-online" style="font-size: 12px; font-weight: 800;">
+                            Apply Admission <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 3. Dynamic Flash Message Blocks -->
+    <div class="container mt-4">
+        <% if (typeof messages !== 'undefined' && messages && messages.length > 0) { %>
+            <% messages.forEach(function(msg) { %>
+                <div class="alert alert-<%= msg.type %> alert-dismissible fade show rounded-4 shadow-sm border-0 d-flex align-items-center gap-2" role="alert">
+                    <% if (msg.type === 'success') { %>
+                        <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                    <% } else { %>
+                        <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>
+                    <% } %>
+                    <div><%= msg.text %></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+
+    <!-- 4. Primary Web Content block -->
+    <main class="py-2">

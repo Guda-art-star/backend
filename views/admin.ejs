@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SJC Mpigi - CMS Administration Suite</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#060a13',
+                            900: '#090e1a',
+                            850: '#0d1324',
+                            800: '#111827',
+                            700: '#1f2937',
+                            600: '#374151'
+                        },
+                        gold: {
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        space: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        /* Custom scrollbar for premium feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090e1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+        
+        .active-glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+        }
+    </style>
+</head>
+<body class="h-full bg-navy-950 text-slate-100 font-sans antialiased overflow-hidden flex">
+
+    <!-- 1. LEFT SIDEBAR PANEL (ST. JOHN'S COLLEGE MPIGI CMS Dashboard) -->
+    <aside class="w-64 bg-navy-900 border-r border-slate-800 flex flex-col flex-shrink-0 h-full">
+        <!-- Sidebar Brand Header -->
+        <div class="p-5 border-b border-slate-800 flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white active-glow">
+                <i class="bi bi-mortarboard-fill text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xs font-black tracking-wider uppercase text-blue-400 font-space">ST. JOHN'S COLLEGE</h1>
+                <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-widest">MPIGI CMS Suite</p>
+            </div>
+        </div>
+
+        <!-- Sidebar Scrolled Menus -->
+        <div class="flex-grow overflow-y-auto p-4 space-y-6">
+            <!-- Section: CONTENT -->
+            <div>
+                <h2 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 mb-2">CONTENT</h2>
+                <div class="space-y-1">
+                    <a href="/admin?tab=dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'dashboard' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-grid-1x2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="/admin?tab=settings" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'settings' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-gear"></i>
+                        <span>Site Settings</span>
+                    </a>
+                    
+                    <!-- Homepage Sections Dropdown-styled Accordion -->
+                    <div class="space-y-1">
+                        <div class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold tracking-wide text-slate-400 cursor-pointer hover:bg-slate-800/50">
+                            <div class="flex items-center gap-3">
+                                <i class="bi bi-house-door"></i>
+                                <span>Homepage Sections</span>
+                            </div>
+                            <i class="bi bi-chevron-down text-[10px]"></i>
+                        </div>
+                        <div class="pl-7 space-y-1 border-l border-slate-800 ml-5">
+                            <a href="/admin?tab=hero_section" class="block py-1 px-2 text-xs font-medium rounded transition-all <%= currentTab === 'hero_section' ? 'text-blue-400 font-bold' : 'text-slate-400 hover:text-slate-200' %>">
+                                <span class="mr-1.5">•</span> Hero Section
+                            </a>
+                            <a href="/admin?tab=about_section" class="block py-1 px-2 text-xs font-medium rounded transition-all <%= currentTab === 'about_section' ? 'text-blue-400 font-bold' : 'text-slate-400 hover:text-slate-200' %>">
+                                <span class="mr-1.5">•</span> About Section
+                            </a>
+                            <a href="/admin?tab=events" class="block py-1 px-2 text-xs font-medium rounded transition-all <%= currentTab === 'events' ? 'text-blue-400 font-bold' : 'text-slate-400 hover:text-slate-200' %>">
+                                <span class="mr-1.5">•</span> Features / Highlights
+                            </a>
+                            <a href="/admin?tab=gallery_section" class="block py-1 px-2 text-xs font-medium rounded transition-all <%= currentTab === 'gallery_section' ? 'text-blue-400 font-bold' : 'text-slate-400 hover:text-slate-200' %>">
+                                <span class="mr-1.5">•</span> Gallery Section
+                            </a>
+                            <a href="/admin?tab=announcements" class="block py-1 px-2 text-xs font-medium rounded transition-all <%= currentTab === 'announcements' ? 'text-blue-400 font-bold' : 'text-slate-400 hover:text-slate-200' %>">
+                                <span class="mr-1.5">•</span> News Section
+                            </a>
+                            <a href="/admin?tab=cta_section" class="block py-1 px-2 text-xs font-medium rounded transition-all <%= currentTab === 'cta_section' ? 'text-blue-400 font-bold' : 'text-slate-400 hover:text-slate-200' %>">
+                                <span class="mr-1.5">•</span> Call To Action
+                            </a>
+                            <a href="/admin?tab=footer_section" class="block py-1 px-2 text-xs font-medium rounded transition-all <%= currentTab === 'footer_section' ? 'text-blue-400 font-bold' : 'text-slate-400 hover:text-slate-200' %>">
+                                <span class="mr-1.5">•</span> Footer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: OTHER PAGES -->
+            <div>
+                <h2 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 mb-2">OTHER PAGES</h2>
+                <div class="space-y-1">
+                    <a href="/admin?tab=about_us" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'about_us' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span>About Us</span>
+                    </a>
+                    <a href="/admin?tab=staff" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'staff' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-mortarboard"></i>
+                        <span>Academics & Faculty</span>
+                    </a>
+                    <a href="/admin?tab=admissions" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'admissions' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-file-earmark-person"></i>
+                        <span>Admission Vetting</span>
+                    </a>
+                    <a href="/admin?tab=alumni" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'alumni' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-people"></i>
+                        <span>Alumni</span>
+                    </a>
+                    <a href="/admin?tab=faqs" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'faqs' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-chat-square-text"></i>
+                        <span>Contact Us / FAQs</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Section: MEDIA & CAMPAIGNS -->
+            <div>
+                <h2 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 mb-2">MEDIA & UTILITIES</h2>
+                <div class="space-y-1">
+                    <a href="/admin?tab=sms" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'sms' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-chat-dots"></i>
+                        <span>Bulk SMS Campaigns</span>
+                    </a>
+                    <a href="/admin?tab=gallery_manager" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'gallery_manager' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-images"></i>
+                        <span>Gallery Photos</span>
+                    </a>
+                    <a href="/admin?tab=documents_manager" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all <%= currentTab === 'documents_manager' ? 'bg-blue-600/10 text-blue-400 border-l-2 border-blue-500' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200' %>">
+                        <i class="bi bi-file-earmark-arrow-up"></i>
+                        <span>Documents Uploads</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Logged-in admin indicator -->
+        <div class="p-4 border-t border-slate-800 bg-navy-950/50 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150" class="w-8 h-8 rounded-full object-cover border border-slate-700" alt="Admin Avatar">
+                <div class="overflow-hidden">
+                    <p class="text-xs font-bold text-slate-200 truncate">Super Admin</p>
+                    <p class="text-[10px] text-slate-500 font-semibold truncate">admin.sjc@mpigi.ac.ug</p>
+                </div>
+            </div>
+            <a href="/logout" title="Sign Out" class="text-slate-500 hover:text-rose-400 p-1.5 rounded-lg hover:bg-slate-800/80 transition-all flex items-center justify-center">
+                <i class="bi bi-box-arrow-right text-base"></i>
+            </a>
+        </div>
+    </aside>
+
+    <!-- 2. MAIN APP CONTENT CONTAINER (Right side of Sidebar) -->
+    <main class="flex-grow flex flex-col h-full overflow-hidden">
+        
+        <!-- TOP NAVIGATION BAR -->
+        <header class="h-14 bg-navy-900 border-b border-slate-800 px-6 flex items-center justify-between flex-shrink-0">
+            <!-- Breadcrumbs Left -->
+            <div class="flex items-center gap-2 text-xs text-slate-400 font-medium">
+                <i class="bi bi-house-fill text-slate-500"></i>
+                <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                <% if (currentTab === 'hero_section') { %>
+                    <span>Homepage Sections</span>
+                    <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                    <span class="text-slate-200 font-bold">Hero Section</span>
+                <% } else if (currentTab === 'dashboard') { %>
+                    <span class="text-slate-200 font-bold">Dashboard Analytics</span>
+                <% } else if (currentTab === 'admissions') { %>
+                    <span>Other Pages</span>
+                    <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                    <span class="text-slate-200 font-bold">Admissions Dossiers</span>
+                <% } else if (currentTab === 'alumni') { %>
+                    <span>Other Pages</span>
+                    <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                    <span class="text-slate-200 font-bold">Alumni Board</span>
+                <% } else if (currentTab === 'announcements') { %>
+                    <span>Homepage Sections</span>
+                    <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                    <span class="text-slate-200 font-bold">News Bulletins</span>
+                <% } else if (currentTab === 'events') { %>
+                    <span>Homepage Sections</span>
+                    <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                    <span class="text-slate-200 font-bold">Highlights & Calendar</span>
+                <% } else if (currentTab === 'staff') { %>
+                    <span>Other Pages</span>
+                    <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                    <span class="text-slate-200 font-bold">Staff Directory</span>
+                <% } else if (currentTab === 'faqs') { %>
+                    <span>Other Pages</span>
+                    <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                    <span class="text-slate-200 font-bold">Portal FAQs</span>
+                <% } else if (currentTab === 'sms') { %>
+                    <span>Campaigns</span>
+                    <i class="bi bi-chevron-right text-[10px] text-slate-600"></i>
+                    <span class="text-slate-200 font-bold">Bulk SMS Portal</span>
+                <% } else { %>
+                    <span class="text-slate-200 font-bold capitalize"><%= currentTab.replace('_', ' ') %></span>
+                <% } %>
+            </div>
+
+            <!-- Top bar Icons & Avatar Right -->
+            <div class="flex items-center gap-4">
+                <!-- Notifications Bell with Red count '3' badge -->
+                <div class="relative cursor-pointer hover:bg-slate-800 p-1.5 rounded-full transition-all">
+                    <i class="bi bi-bell text-slate-400 text-lg"></i>
+                    <span class="absolute top-1.5 right-1.5 w-4 h-4 bg-rose-500 rounded-full text-[9px] font-bold text-white flex items-center justify-center">3</span>
+                </div>
+                
+                <div class="h-6 w-px bg-slate-800"></div>
+
+                <!-- Admin Profile Dropdown -->
+                <div class="flex items-center gap-2.5">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150" class="w-7 h-7 rounded-full object-cover border border-slate-700" alt="Admin Profile">
+                    <div class="hidden md:block text-left">
+                        <p class="text-xs font-bold text-slate-300">Admin</p>
+                        <p class="text-[9px] text-slate-500 font-medium font-mono">Super Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Message Flash Banner (In-Memory alerts) -->
+        <% if (messages && messages.length > 0) { %>
+            <div class="px-6 pt-4 flex-shrink-0">
+                <% messages.forEach(function(msg) { %>
+                    <div class="p-3.5 rounded-xl border flex items-center gap-3 text-xs font-medium tracking-wide <%= msg.type === 'success' ? 'bg-emerald-950/40 text-emerald-400 border-emerald-900/50' : 'bg-rose-950/40 text-rose-400 border-rose-900/50' %>">
+                        <i class="bi <%= msg.type === 'success' ? 'bi-patch-check-fill' : 'bi-exclamation-octagon-fill' %> text-lg"></i>
+                        <span><%= msg.text %></span>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <!-- SCROLLABLE TAB PANEL WINDOW -->
+        <div class="flex-grow overflow-y-auto p-6 space-y-6">
+
+            <!-- TAB CONTAINER: HERO SECTION (Pixel Perfect Copy) -->
+            <% if (currentTab === 'hero_section') { %>
+                <!-- Page Title Header Row -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">Hero Section</h2>
+                        <p class="text-xs text-slate-400">Manage the hero section content that appears on your homepage.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <a href="/website" target="_blank" class="flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-slate-300 border border-slate-700 hover:bg-slate-800 rounded-lg transition-all">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                            <span>Visit Website</span>
+                        </a>
+                        <button type="submit" form="heroSectionForm" class="flex items-center gap-2 px-4 py-1.5 text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-lg shadow shadow-blue-900/30 transition-all">
+                            <i class="bi bi-save2-fill"></i>
+                            <span>Save All Changes</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom Header Tabs Under title -->
+                <div class="flex gap-4 border-b border-slate-800 text-xs font-bold">
+                    <span class="py-2.5 border-b-2 border-blue-500 text-blue-400 cursor-pointer">Content</span>
+                    <span class="py-2.5 text-slate-500 hover:text-slate-300 cursor-pointer transition-all">Settings</span>
+                    <span class="py-2.5 text-slate-500 hover:text-slate-300 cursor-pointer transition-all">Background</span>
+                    <span class="py-2.5 text-slate-500 hover:text-slate-300 cursor-pointer transition-all">SEO</span>
+                </div>
+
+                <!-- Splitted Edit Grid: Form on Left, Live Preview on Right -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Left Edit Form Column -->
+                    <div class="lg:col-span-7 space-y-5">
+                        <form id="heroSectionForm" method="POST" action="/admin/hero-section/save" class="space-y-5">
+                            
+                            <!-- Form Box 1: Badge Info -->
+                            <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs font-bold text-slate-300 tracking-wide">Badge</label>
+                                    <span id="badgeCharCount" class="text-[10px] text-slate-500 font-bold font-mono">20/30</span>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+                                        <i class="bi bi-hexagon-fill text-xs text-amber-500"></i>
+                                    </div>
+                                    <input type="text" id="badgeInput" name="badge" maxlength="30" value="<%= heroConfig.badge %>" placeholder="e.g. ACADEMIC DISTINCTION" class="w-full bg-navy-850 border border-slate-800 focus:border-blue-500/50 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none transition-all">
+                                </div>
+                            </div>
+
+                            <!-- Form Box 2: Title Rich text editor emulation -->
+                            <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs font-bold text-slate-300 tracking-wide">Title</label>
+                                    <span id="titleCharCount" class="text-[10px] text-slate-500 font-bold font-mono">34/100</span>
+                                </div>
+                                <!-- Rich Text Simulation Toolbar -->
+                                <div class="flex items-center gap-1 bg-navy-850 p-1.5 border border-slate-800 rounded-t-lg">
+                                    <button type="button" class="p-1 px-2 text-xs font-bold hover:bg-slate-800 text-slate-300 hover:text-white rounded">H</button>
+                                    <button type="button" class="p-1 px-2 text-xs font-extrabold hover:bg-slate-800 text-slate-300 hover:text-white rounded">B</button>
+                                    <button type="button" class="p-1 px-2 text-xs italic hover:bg-slate-800 text-slate-300 hover:text-white rounded">I</button>
+                                    <button type="button" class="p-1 px-2 text-xs underline hover:bg-slate-800 text-slate-300 hover:text-white rounded">U</button>
+                                    <button type="button" class="p-1 px-2 text-xs line-through hover:bg-slate-800 text-slate-300 hover:text-white rounded">S</button>
+                                    <div class="h-4 w-px bg-slate-800 mx-1"></div>
+                                    <button type="button" class="p-1 text-slate-400 hover:text-white rounded"><i class="bi bi-list-ul text-xs"></i></button>
+                                    <button type="button" class="p-1 text-slate-400 hover:text-white rounded"><i class="bi bi-link-45deg text-xs"></i></button>
+                                    <button type="button" class="p-1 text-slate-400 hover:text-white rounded"><i class="bi bi-text-align-left text-xs"></i></button>
+                                </div>
+                                <textarea id="titleInput" name="title" rows="3" maxlength="100" class="w-full bg-navy-850 border-x border-b border-slate-800 focus:border-blue-500/50 rounded-b-lg p-3 text-xs text-white focus:outline-none placeholder-slate-600 font-medium tracking-wide transition-all"><%= heroConfig.title %></textarea>
+                            </div>
+
+                            <!-- Form Box 3: Description Rich text editor emulation -->
+                            <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs font-bold text-slate-300 tracking-wide">Description</label>
+                                    <span id="descCharCount" class="text-[10px] text-slate-500 font-bold font-mono">86/160</span>
+                                </div>
+                                <!-- Rich Text Emulation Toolbar -->
+                                <div class="flex items-center gap-1 bg-navy-850 p-1.5 border border-slate-800 rounded-t-lg">
+                                    <button type="button" class="p-1 px-2 text-xs font-bold hover:bg-slate-800 text-slate-300 hover:text-white rounded">H</button>
+                                    <button type="button" class="p-1 px-2 text-xs font-extrabold hover:bg-slate-800 text-slate-300 hover:text-white rounded">B</button>
+                                    <button type="button" class="p-1 px-2 text-xs italic hover:bg-slate-800 text-slate-300 hover:text-white rounded">I</button>
+                                    <button type="button" class="p-1 px-2 text-xs underline hover:bg-slate-800 text-slate-300 hover:text-white rounded">U</button>
+                                    <button type="button" class="p-1 px-2 text-xs line-through hover:bg-slate-800 text-slate-300 hover:text-white rounded">S</button>
+                                    <div class="h-4 w-px bg-slate-800 mx-1"></div>
+                                    <button type="button" class="p-1 text-slate-400 hover:text-white rounded"><i class="bi bi-list-ul text-xs"></i></button>
+                                    <button type="button" class="p-1 text-slate-400 hover:text-white rounded"><i class="bi bi-link-45deg text-xs"></i></button>
+                                    <button type="button" class="p-1 text-slate-400 hover:text-white rounded"><i class="bi bi-text-align-left text-xs"></i></button>
+                                </div>
+                                <textarea id="descInput" name="description" rows="3" maxlength="160" class="w-full bg-navy-850 border-x border-b border-slate-800 focus:border-blue-500/50 rounded-b-lg p-3 text-xs text-slate-300 focus:outline-none placeholder-slate-600 transition-all"><%= heroConfig.description %></textarea>
+                            </div>
+
+                            <!-- Form Box 4: Buttons side-by-side editing -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <!-- Primary Button Panel -->
+                                <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                                    <h4 class="text-xs font-extrabold text-blue-400 uppercase tracking-widest border-b border-slate-800/80 pb-1.5">Primary Button</h4>
+                                    
+                                    <div class="space-y-1.5">
+                                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Button Text</label>
+                                        <input type="text" id="pBtnTextInput" name="primaryBtnText" value="<%= heroConfig.primaryBtnText %>" class="w-full bg-navy-850 border border-slate-800 focus:border-blue-500/50 rounded-lg p-2 text-xs text-white focus:outline-none transition-all">
+                                    </div>
+                                    <div class="space-y-1.5">
+                                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Link / Action</label>
+                                        <div class="relative">
+                                            <input type="text" name="primaryBtnLink" value="<%= heroConfig.primaryBtnLink %>" class="w-full bg-navy-850 border border-slate-800 focus:border-blue-500/50 rounded-lg pl-3 pr-8 py-2 text-xs text-white focus:outline-none transition-all">
+                                            <i class="bi bi-link-45deg absolute right-2.5 top-2 text-slate-500"></i>
+                                        </div>
+                                    </div>
+                                    <!-- Dynamic Color indicator from image -->
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded bg-blue-600 cursor-pointer ring-1 ring-white/20"></div>
+                                        <span class="text-[10px] font-bold text-slate-500 tracking-wide uppercase font-mono">Accent #2563EB</span>
+                                    </div>
+                                </div>
+
+                                <!-- Secondary Button Panel -->
+                                <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                                    <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-widest border-b border-slate-800/80 pb-1.5">Secondary Button</h4>
+                                    
+                                    <div class="space-y-1.5">
+                                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Button Text</label>
+                                        <input type="text" id="sBtnTextInput" name="secondaryBtnText" value="<%= heroConfig.secondaryBtnText %>" class="w-full bg-navy-850 border border-slate-800 focus:border-blue-500/50 rounded-lg p-2 text-xs text-white focus:outline-none transition-all">
+                                    </div>
+                                    <div class="space-y-1.5">
+                                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Link / Action</label>
+                                        <div class="relative">
+                                            <input type="text" name="secondaryBtnLink" value="<%= heroConfig.secondaryBtnLink %>" class="w-full bg-navy-850 border border-slate-800 focus:border-blue-500/50 rounded-lg pl-3 pr-8 py-2 text-xs text-white focus:outline-none transition-all">
+                                            <i class="bi bi-link-45deg absolute right-2.5 top-2 text-slate-500"></i>
+                                        </div>
+                                    </div>
+                                    <!-- Accent color box black/transparent border outline from image -->
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded border border-slate-600 bg-navy-900 cursor-pointer ring-1 ring-white/10"></div>
+                                        <span class="text-[10px] font-bold text-slate-500 tracking-wide uppercase font-mono">Outline Standard</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Box 5: Slider images with drag to reorder and checkbox indicators -->
+                            <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wide">Slider Images</h4>
+                                
+                                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                                    <% heroConfig.images.forEach(function(imgUrl, idx) { %>
+                                        <div class="relative group aspect-square rounded-lg overflow-hidden border border-slate-800 bg-slate-900">
+                                            <img src="<%= imgUrl %>" class="w-full h-full object-cover" alt="Slide">
+                                            <input type="hidden" name="images[]" value="<%= imgUrl %>">
+                                            <!-- Checkbox tick on top left -->
+                                            <div class="absolute top-1.5 left-1.5 w-4.5 h-4.5 bg-blue-600 rounded-full flex items-center justify-center text-white text-[10px] shadow active-glow">
+                                                <i class="bi bi-check"></i>
+                                            </div>
+                                            <!-- Handle menu item dot on top right -->
+                                            <div class="absolute top-1.5 right-1.5 w-4.5 h-4.5 bg-slate-950/80 hover:bg-slate-950 rounded-full flex items-center justify-center text-slate-400 hover:text-white text-[10px] cursor-grab">
+                                                <i class="bi bi-grid-3x3-gap-fill"></i>
+                                            </div>
+                                        </div>
+                                    <% }) %>
+                                    
+                                    <!-- Add button box -->
+                                    <div class="aspect-square rounded-lg border-2 border-dashed border-slate-800 hover:border-slate-700 bg-navy-850/50 flex flex-col items-center justify-center text-slate-500 hover:text-slate-400 cursor-pointer transition-all">
+                                        <i class="bi bi-plus-lg text-lg"></i>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between items-center text-[11px] text-slate-500 font-medium">
+                                    <span>Drag to reorder images. Recommended size: 1920x1080px</span>
+                                    <span class="font-bold text-slate-400">4/10 images</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right Live Preview & Actions Column -->
+                    <div class="lg:col-span-5 space-y-6">
+                        
+                        <!-- LIVE PREVIEW CONSOLE WINDOW -->
+                        <div class="p-4 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                            <!-- Live Preview Panel Title with mock devices buttons -->
+                            <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                                    <span>Live Preview</span>
+                                    <span class="text-[10px] font-medium text-slate-500 capitalize tracking-normal italic">Changes auto-saved</span>
+                                </span>
+                                <!-- Device sizes triggers -->
+                                <div class="flex gap-1 text-[11px] text-slate-500 bg-navy-850 p-1 rounded-lg">
+                                    <button class="p-1 px-1.5 bg-slate-800 text-white rounded"><i class="bi bi-pc-display"></i></button>
+                                    <button class="p-1 px-1.5 hover:text-slate-300"><i class="bi bi-tablet"></i></button>
+                                    <button class="p-1 px-1.5 hover:text-slate-300"><i class="bi bi-phone"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Preview Viewport representation -->
+                            <div class="relative aspect-[4/3] rounded-lg overflow-hidden border border-slate-800 shadow shadow-slate-950/80 bg-navy-950 flex flex-col justify-between">
+                                <!-- Background Image matching current active slider image -->
+                                <div class="absolute inset-0 z-0">
+                                    <img id="previewImage" src="<%= heroConfig.images[0] %>" class="w-full h-full object-cover filter brightness-[0.4]" alt="Preview Base">
+                                </div>
+
+                                <!-- Overlay header logo inside the preview screen -->
+                                <div class="relative z-10 p-3.5 flex items-center justify-between border-b border-white/5 bg-slate-950/20">
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="bi bi-mortarboard-fill text-blue-500 text-sm"></i>
+                                        <div>
+                                            <h5 class="text-[9px] font-black tracking-wide text-white font-space leading-none uppercase">ST. JOHN'S COLLEGE MPIGI</h5>
+                                            <p class="text-[6.5px] text-orange-500 font-extrabold uppercase tracking-widest mt-0.5">GODLINESS & HARDWORK</p>
+                                        </div>
+                                    </div>
+                                    <i class="bi bi-list text-white text-base leading-none"></i>
+                                </div>
+
+                                <!-- Central Core Display Content of the Preview -->
+                                <div class="relative z-10 px-6 py-4 flex flex-col items-center text-center space-y-2 flex-grow justify-center">
+                                    <!-- Badge -->
+                                    <span id="previewBadge" class="px-2.5 py-0.5 border border-amber-500/60 rounded-full text-[7.5px] font-extrabold text-amber-400 tracking-wider uppercase bg-amber-950/10">
+                                        <%= heroConfig.badge %>
+                                    </span>
+                                    <!-- Title Display Serif font -->
+                                    <h3 id="previewTitle" class="text-white text-lg sm:text-xl font-bold font-serif max-w-sm leading-tight">
+                                        <%= heroConfig.title %>
+                                    </h3>
+                                    <!-- Description -->
+                                    <p id="previewDesc" class="text-slate-300 text-[10px] max-w-xs leading-relaxed line-clamp-3">
+                                        <%= heroConfig.description %>
+                                    </p>
+                                    <!-- Buttons -->
+                                    <div class="flex items-center gap-2 pt-2">
+                                        <span id="previewPBtnText" class="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-[9px] font-bold text-white rounded cursor-pointer transition-all flex items-center gap-1 shadow-sm">
+                                            <%= heroConfig.primaryBtnText %> <i class="bi bi-arrow-right-short ms-1"></i>
+                                        </span>
+                                        <span id="previewSBtnText" class="px-3 py-1 border border-white/50 text-[9px] font-bold text-white rounded cursor-pointer transition-all hover:bg-white/10">
+                                            <%= heroConfig.secondaryBtnText %>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Carousel Pagination dots inside the preview screen -->
+                                <div class="relative z-10 pb-4 flex items-center justify-center gap-1">
+                                    <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                                    <span class="w-1 h-1 bg-white/45 rounded-full"></span>
+                                    <span class="w-1 h-1 bg-white/45 rounded-full"></span>
+                                    <span class="w-1 h-1 bg-white/45 rounded-full"></span>
+                                </div>
+                                
+                                <!-- Sliders Carousel arrows -->
+                                <span class="absolute left-1.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-slate-900/40 border border-white/5 flex items-center justify-center text-white text-[9px] z-10"><i class="bi bi-chevron-left"></i></span>
+                                <span class="absolute right-1.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-slate-900/40 border border-white/5 flex items-center justify-center text-white text-[9px] z-10"><i class="bi bi-chevron-right"></i></span>
+                            </div>
+
+                            <!-- Under panels (Side-By-Side: Quick Actions & Status) -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- Section 1: Quick Actions Grid -->
+                                <div class="p-3 bg-navy-850 border border-slate-800 rounded-xl space-y-2">
+                                    <h5 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Quick Actions</h5>
+                                    
+                                    <div class="grid grid-cols-2 gap-2 text-center text-[9px] font-bold text-slate-300">
+                                        <div class="p-2.5 bg-navy-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg cursor-pointer transition-all space-y-1.5 flex flex-col items-center">
+                                            <i class="bi bi-copy text-sm text-slate-400"></i>
+                                            <span>Duplicate</span>
+                                        </div>
+                                        <div class="p-2.5 bg-navy-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg cursor-pointer transition-all space-y-1.5 flex flex-col items-center">
+                                            <i class="bi bi-slash-circle text-sm text-rose-500"></i>
+                                            <span>Disable</span>
+                                        </div>
+                                        <div class="p-2.5 bg-navy-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg cursor-pointer transition-all space-y-1.5 flex flex-col items-center">
+                                            <i class="bi bi-eye text-sm text-blue-400"></i>
+                                            <span>Preview</span>
+                                        </div>
+                                        <div class="p-2.5 bg-navy-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg cursor-pointer transition-all space-y-1.5 flex flex-col items-center">
+                                            <i class="bi bi-arrow-counterclockwise text-sm text-amber-500"></i>
+                                            <span>Reset</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Section 2: Section Status Details -->
+                                <div class="p-3 bg-navy-850 border border-slate-800 rounded-xl flex flex-col justify-between">
+                                    <div class="space-y-2">
+                                        <h5 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Section Status</h5>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[10px] font-bold text-slate-300">Status</span>
+                                            <div class="flex items-center gap-1.5">
+                                                <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                                                <span class="text-[10px] font-bold text-emerald-400">Published</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between text-[10px]">
+                                            <span class="font-semibold text-slate-500">Visibility</span>
+                                            <span class="font-bold text-slate-300">Public</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="border-t border-slate-800/80 pt-2 text-[9px] font-semibold text-slate-500 space-y-0.5 mt-2">
+                                        <div class="flex justify-between">
+                                            <span>Last Updated</span>
+                                            <span class="text-slate-400 font-bold"><%= heroConfig.lastUpdated %></span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Updated By</span>
+                                            <span class="text-slate-400 font-bold"><%= heroConfig.updatedBy %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+
+            <!-- TAB CONTAINER: ANALYTICS DASHBOARD (Beautiful Dark Mode View) -->
+            <% if (currentTab === 'dashboard') { %>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">CMS & Analytics Dashboard</h2>
+                        <p class="text-xs text-slate-400">Live summary trackers of web admissions and portal database registrations.</p>
+                    </div>
+                    <a href="/website" target="_blank" class="flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-blue-400 border border-blue-500/20 bg-blue-600/10 hover:bg-blue-600/20 rounded-lg transition-all">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                        <span>View Landing Site</span>
+                    </a>
+                </div>
+
+                <!-- High Impact Dark Statistics Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="p-5 bg-navy-900 border-l-4 border-blue-500 border border-slate-800 rounded-xl flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">TOTAL ADMISSIONS</p>
+                            <h3 class="text-2xl font-extrabold text-white mt-1 font-space"><%= admissions.length %></h3>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-500/10 border border-blue-500/20 rounded-lg flex items-center justify-center text-blue-400 text-lg"><i class="bi bi-file-earmark-person"></i></div>
+                    </div>
+                    <div class="p-5 bg-navy-900 border-l-4 border-emerald-500 border border-slate-800 rounded-xl flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">PAID ESCROWS</p>
+                            <h3 class="text-2xl font-extrabold text-white mt-1 font-space"><%= admissions.filter(a => a.payment_status === 'paid').length %></h3>
+                        </div>
+                        <div class="w-10 h-10 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center text-emerald-400 text-lg"><i class="bi bi-currency-dollar"></i></div>
+                    </div>
+                    <div class="p-5 bg-navy-900 border-l-4 border-amber-500 border border-slate-800 rounded-xl flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">ALUMNI REGISTRY</p>
+                            <h3 class="text-2xl font-extrabold text-white mt-1 font-space"><%= alumni.filter(a => a.is_approved).length %></h3>
+                        </div>
+                        <div class="w-10 h-10 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-center text-amber-400 text-lg"><i class="bi bi-people"></i></div>
+                    </div>
+                    <div class="p-5 bg-navy-900 border-l-4 border-rose-500 border border-slate-800 rounded-xl flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">ACTIVE NEWS</p>
+                            <h3 class="text-2xl font-extrabold text-white mt-1 font-space"><%= announcements.length %></h3>
+                        </div>
+                        <div class="w-10 h-10 bg-rose-500/10 border border-rose-500/20 rounded-lg flex items-center justify-center text-rose-400 text-lg"><i class="bi bi-megaphone"></i></div>
+                    </div>
+                </div>
+
+                <!-- Web Traffic Line Chart Container -->
+                <div class="p-6 bg-navy-900 border border-slate-800 rounded-xl">
+                    <div class="flex items-center justify-between mb-5">
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Admissions Portal Interactions & Traffic</h4>
+                            <p class="text-[10px] text-slate-500 font-semibold uppercase mt-0.5">Automated 7-day server traffic telemetry log tracker</p>
+                        </div>
+                        <div class="flex gap-3 text-[10px] font-bold text-slate-400">
+                            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span> Visits</span>
+                            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-amber-500 rounded-full"></span> Applications</span>
+                        </div>
+                    </div>
+                    <div class="h-64 relative w-full">
+                        <canvas id="dashboardTrendsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart.js initialization script -->
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const ctx = document.getElementById('dashboardTrendsChart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                                datasets: [
+                                    {
+                                        label: 'Visits',
+                                        data: [120, 150, 180, 140, 210, 250, 190],
+                                        borderColor: '#3b82f6',
+                                        backgroundColor: 'rgba(59, 130, 246, 0.05)',
+                                        borderWidth: 2,
+                                        tension: 0.3,
+                                        fill: true
+                                    },
+                                    {
+                                        label: 'Applications',
+                                        data: [2, 5, 4, 3, 7, 10, 8],
+                                        borderColor: '#f59e0b',
+                                        backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                                        borderWidth: 2,
+                                        tension: 0.3,
+                                        fill: true
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: { legend: { display: false } },
+                                scales: {
+                                    x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 } } },
+                                    y: { grid: { color: '#1e293b' }, ticks: { color: '#64748b', font: { size: 10 } } }
+                                }
+                            }
+                        });
+                    });
+                </script>
+            <% } %>
+
+            <!-- TAB CONTAINER: ADMISSIONS VETTING (Beautiful Dark Mode List) -->
+            <% if (currentTab === 'admissions') { %>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">Student Admissions Vetting</h2>
+                        <p class="text-xs text-slate-400">Verify school escrow registration fee receipts and approve entry dossiers instantly.</p>
+                    </div>
+                </div>
+
+                <% if (admissions && admissions.length > 0) { %>
+                    <div class="bg-navy-900 border border-slate-800 rounded-xl overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-800 bg-navy-850/50 text-slate-400 font-bold uppercase tracking-wider">
+                                        <th class="p-4">Student Dossier</th>
+                                        <th class="p-4">Applied Class</th>
+                                        <th class="p-4">Parent details</th>
+                                        <th class="p-4">Payment Ref</th>
+                                        <th class="p-4">Escrow Status</th>
+                                        <th class="p-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800/85">
+                                    <% admissions.forEach(function(app) { %>
+                                        <tr class="hover:bg-slate-800/20 transition-all">
+                                            <td class="p-4">
+                                                <div class="font-bold text-white text-sm"><%= app.first_name %> <%= app.last_name %></div>
+                                                <span class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">PREV: <%= app.previous_school %></span>
+                                            </td>
+                                            <td class="p-4">
+                                                <span class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded font-bold uppercase text-[10px]">
+                                                    <%= app.class_applied %>
+                                                </span>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="font-bold text-slate-300"><%= app.parent_name %></div>
+                                                <div class="text-[10px] text-slate-500 font-mono"><%= app.parent_phone %></div>
+                                            </td>
+                                            <td class="p-4">
+                                                <code class="text-slate-400 text-[10px] font-mono"><%= app.payment_reference %></code>
+                                            </td>
+                                            <td class="p-4">
+                                                <% if (app.payment_status === 'paid') { %>
+                                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[10px] font-bold uppercase">
+                                                        <span class="w-1 h-1 bg-emerald-400 rounded-full"></span> Cleared
+                                                    </span>
+                                                <% } else { %>
+                                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded text-[10px] font-bold uppercase">
+                                                        <span class="w-1 h-1 bg-amber-400 rounded-full"></span> Pending
+                                                    </span>
+                                                <% } %>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="flex items-center justify-end gap-2">
+                                                    <% if (app.payment_status !== 'paid') { %>
+                                                        <form method="POST" action="/admin/admissions/approve/<%= app.application_id %>">
+                                                            <button type="submit" class="p-1 px-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-[10px] font-bold tracking-wide transition-all">
+                                                                Clear Escrow
+                                                            </button>
+                                                        </form>
+                                                    <% } %>
+                                                    <a href="/website/apply-online/receipt/<%= app.application_id %>" target="_blank" class="p-1 px-1.5 bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white rounded text-[11px]"><i class="bi bi-printer"></i></a>
+                                                    <form method="POST" action="/admin/admissions/delete/<%= app.application_id %>" onsubmit="return confirm('Permanently remove student application?');">
+                                                        <button type="submit" class="p-1 px-1.5 bg-rose-600/15 hover:bg-rose-600 text-rose-400 hover:text-white rounded text-[11px]"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="text-center p-12 bg-navy-900 border border-slate-800 rounded-xl text-slate-500">
+                        <i class="bi bi-file-earmark-person-fill text-3xl"></i>
+                        <p class="mt-2.5 text-xs font-semibold uppercase tracking-wider">No student applications submitted yet</p>
+                    </div>
+                <% } %>
+            <% } %>
+
+            <!-- TAB CONTAINER: ALUMNI MODERATION -->
+            <% if (currentTab === 'alumni') { %>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">Alumni Board Moderation</h2>
+                        <p class="text-xs text-slate-400">Toggle public permission flags on alumni directory profiles.</p>
+                    </div>
+                </div>
+
+                <% if (alumni && alumni.length > 0) { %>
+                    <div class="bg-navy-900 border border-slate-800 rounded-xl overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-800 bg-navy-850/50 text-slate-400 font-bold uppercase tracking-wider">
+                                        <th class="p-4">Alumnus Name</th>
+                                        <th class="p-4">Class Year</th>
+                                        <th class="p-4">Profession / Job</th>
+                                        <th class="p-4">Memory quote</th>
+                                        <th class="p-4">Approval State</th>
+                                        <th class="p-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800/85">
+                                    <% alumni.forEach(function(alumn) { %>
+                                        <tr class="hover:bg-slate-800/20 transition-all">
+                                            <td class="p-4 flex items-center gap-3">
+                                                <% if (alumn.photo) { %>
+                                                    <img src="<%= alumn.photo %>" class="w-8 h-8 rounded-full object-cover border border-slate-700">
+                                                <% } else { %>
+                                                    <div class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-xs font-bold font-mono"><%= alumn.name[0] %></div>
+                                                <% } %>
+                                                <div class="font-bold text-white text-xs"><%= alumn.name %></div>
+                                            </td>
+                                            <td class="p-4 font-bold text-slate-300 font-mono"><%= alumn.graduation_year %></td>
+                                            <td class="p-4 text-slate-300 font-medium"><%= alumn.current_profession %></td>
+                                            <td class="p-4 text-slate-400 max-w-xs truncate" title="<%= alumn.quote %>">"<%= alumn.quote %>"</td>
+                                            <td class="p-4">
+                                                <% if (alumn.is_approved) { %>
+                                                    <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[10px] font-bold uppercase">Approved</span>
+                                                <% } else { %>
+                                                    <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded text-[10px] font-bold uppercase">Pending Approval</span>
+                                                <% } %>
+                                            </td>
+                                            <td class="p-4">
+                                                <div class="flex items-center justify-end gap-2">
+                                                    <form method="POST" action="/admin/alumni/toggle/<%= alumn.id %>">
+                                                        <button type="submit" class="p-1 px-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded text-[10px] font-bold transition-all">
+                                                            <%= alumn.is_approved ? 'Unapprove' : 'Approve' %>
+                                                        </button>
+                                                    </form>
+                                                    <form method="POST" action="/admin/alumni/delete/<%= alumn.id %>" onsubmit="return confirm('Permanently remove alumni profile?');">
+                                                        <button type="submit" class="p-1 px-1.5 bg-rose-600/15 hover:bg-rose-600 text-rose-400 hover:text-white rounded text-[11px]"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="text-center p-12 bg-navy-900 border border-slate-800 rounded-xl text-slate-500">
+                        <i class="bi bi-people-fill text-3xl"></i>
+                        <p class="mt-2.5 text-xs font-semibold uppercase tracking-wider">No alumni registrants found</p>
+                    </div>
+                <% } %>
+            <% } %>
+
+            <!-- TAB CONTAINER: BULLETIN BOARD NEWS -->
+            <% if (currentTab === 'announcements') { %>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">School News & Bulletins</h2>
+                        <p class="text-xs text-slate-400">Publish latest school updates, parent circular notices, or student announcements.</p>
+                    </div>
+                    <!-- Trigger Form Modal / display addition panel -->
+                    <button onclick="document.getElementById('addAnnouncementBox').classList.toggle('hidden')" class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-all">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Compose Bulletin</span>
+                    </button>
+                </div>
+
+                <!-- Hidden Addition Box collapsible -->
+                <div id="addAnnouncementBox" class="hidden p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                    <h3 class="text-xs font-bold text-blue-400 uppercase tracking-wider">Compose New Circular Notice</h3>
+                    <form method="POST" action="/admin/announcements/add" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Bulletin Title</label>
+                            <input type="text" name="title" required placeholder="e.g. End of Term Circular" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Category Tag</label>
+                            <select name="category" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-slate-300 focus:outline-none focus:border-blue-500/50">
+                                <option value="General Circular">General Circular</option>
+                                <option value="Admissions">Admissions</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Academic Notice">Academic Notice</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Publication Date</label>
+                            <input type="date" name="date" required value="2026-07-14" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Excerpt / short preview</label>
+                            <input type="text" name="excerpt" required placeholder="Quick preview snippet text" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="md:col-span-2 space-y-1.5">
+                            <label class="font-semibold text-slate-400">Full Circular content</label>
+                            <textarea name="content" rows="4" required placeholder="Type formal text of circular here..." class="w-full bg-navy-850 border border-slate-800 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500/50"></textarea>
+                        </div>
+                        <div class="md:col-span-2 flex justify-end gap-2 pt-2">
+                            <button type="button" onclick="document.getElementById('addAnnouncementBox').classList.add('hidden')" class="px-4 py-2 border border-slate-800 hover:bg-slate-800 rounded-lg text-slate-300 font-bold">Cancel</button>
+                            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow-md shadow-blue-900/10">Publish Bulletin</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Announcements list -->
+                <% if (announcements && announcements.length > 0) { %>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <% announcements.forEach(function(item) { %>
+                            <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl flex gap-4 items-start justify-between">
+                                <div class="flex gap-4">
+                                    <div class="w-12 h-12 bg-rose-500/10 border border-rose-500/20 rounded-lg flex items-center justify-center text-rose-400 text-lg flex-shrink-0"><i class="bi bi-megaphone"></i></div>
+                                    <div class="space-y-1 overflow-hidden">
+                                        <span class="inline-block px-2 py-0.5 bg-slate-800 text-[9px] font-bold text-slate-400 rounded uppercase tracking-wider"><%= item.category %></span>
+                                        <h4 class="text-xs font-bold text-white truncate max-w-[280px]"><%= item.title %></h4>
+                                        <p class="text-[10px] text-slate-400 line-clamp-2"><%= item.excerpt %></p>
+                                        <p class="text-[9px] text-slate-500 font-semibold uppercase"><i class="bi bi-calendar"></i> <%= item.date %></p>
+                                    </div>
+                                </div>
+                                <form method="POST" action="/admin/announcements/delete/<%= item.id %>" onsubmit="return confirm('Permanently delete circular notice?');" class="flex-shrink-0">
+                                    <button type="submit" class="p-1 px-1.5 bg-rose-600/15 hover:bg-rose-600 text-rose-400 hover:text-white rounded text-[11px]"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="text-center p-12 bg-navy-900 border border-slate-800 rounded-xl text-slate-500">
+                        <i class="bi bi-megaphone-fill text-3xl"></i>
+                        <p class="mt-2.5 text-xs font-semibold uppercase tracking-wider">No announcements posted yet</p>
+                    </div>
+                <% } %>
+            <% } %>
+
+            <!-- TAB CONTAINER: SCHOOL CALENDAR EVENTS -->
+            <% if (currentTab === 'events') { %>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">Highlights & Calendar Events</h2>
+                        <p class="text-xs text-slate-400">Schedule inter-house sports galas, visitation days, or examination assemblies.</p>
+                    </div>
+                    <button onclick="document.getElementById('addEventBox').classList.toggle('hidden')" class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-all">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Schedule Event</span>
+                    </button>
+                </div>
+
+                <!-- collapsible Add Event Box -->
+                <div id="addEventBox" class="hidden p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                    <h3 class="text-xs font-bold text-blue-400 uppercase tracking-wider">Schedule New Calendar Event</h3>
+                    <form method="POST" action="/admin/events/add" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Event Title</label>
+                            <input type="text" name="title" required placeholder="e.g. SJC Inter-House Sports" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Category Tag</label>
+                            <input type="text" name="category" required placeholder="e.g. Sports & Games" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Event Date</label>
+                            <input type="date" name="date" required value="2026-07-25" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Time bracket</label>
+                            <input type="text" name="time" required placeholder="e.g. 8:00 AM - 5:00 PM" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Physical Location</label>
+                            <input type="text" name="location" required placeholder="e.g. SJC Sports Grounds" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Entrance Fee State</label>
+                            <input type="text" name="cost" required placeholder="e.g. Free Entry" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="md:col-span-2 space-y-1.5">
+                            <label class="font-semibold text-slate-400">Short description</label>
+                            <textarea name="description" rows="3" required placeholder="Detail the event's instructions here..." class="w-full bg-navy-850 border border-slate-800 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500/50"></textarea>
+                        </div>
+                        <div class="md:col-span-2 flex justify-end gap-2 pt-2">
+                            <button type="button" onclick="document.getElementById('addEventBox').classList.add('hidden')" class="px-4 py-2 border border-slate-800 hover:bg-slate-800 rounded-lg text-slate-300 font-bold">Cancel</button>
+                            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg">Schedule Event</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Events layout -->
+                <% if (events && events.length > 0) { %>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <% events.forEach(function(event) { %>
+                            <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl flex gap-4 items-start justify-between">
+                                <div class="flex gap-4">
+                                    <div class="text-center bg-blue-600/10 border border-blue-500/25 p-2 rounded-lg flex flex-col justify-center items-center w-12 h-12 flex-shrink-0 text-blue-400">
+                                        <span class="font-black text-xs leading-none font-space"><%= new Date(event.date).getDate() %></span>
+                                        <span class="text-[8px] uppercase tracking-wider font-bold mt-1"><%= new Date(event.date).toLocaleDateString('en-US', { month: 'short' }) %></span>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <span class="inline-block px-1.5 py-0.5 bg-slate-800 text-[8px] font-bold text-slate-400 rounded uppercase tracking-wider"><%= event.category %></span>
+                                        <h4 class="text-xs font-bold text-white"><%= event.title %></h4>
+                                        <div class="flex flex-wrap gap-x-3 gap-y-1 text-[9px] text-slate-500 font-semibold font-mono">
+                                            <span><i class="bi bi-clock"></i> <%= event.time %></span>
+                                            <span><i class="bi bi-geo-alt"></i> <%= event.location %></span>
+                                            <span><i class="bi bi-cash"></i> <%= event.cost %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form method="POST" action="/admin/events/delete/<%= event.id %>" onsubmit="return confirm('Permanently remove calendar event?');" class="flex-shrink-0">
+                                    <button type="submit" class="p-1 px-1.5 bg-rose-600/15 hover:bg-rose-600 text-rose-400 hover:text-white rounded text-[11px]"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="text-center p-12 bg-navy-900 border border-slate-800 rounded-xl text-slate-500">
+                        <i class="bi bi-calendar-event text-3xl"></i>
+                        <p class="mt-2.5 text-xs font-semibold uppercase tracking-wider">No events listed in school calendar</p>
+                    </div>
+                <% } %>
+            <% } %>
+
+            <!-- TAB CONTAINER: STAFF DIRECTORY -->
+            <% if (currentTab === 'staff') { %>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">Staff & Faculty Directory</h2>
+                        <p class="text-xs text-slate-400">Manage principal directors, teaching staff, and hostel warden listings.</p>
+                    </div>
+                    <button onclick="document.getElementById('addStaffBox').classList.toggle('hidden')" class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-all">
+                        <i class="bi bi-person-plus"></i>
+                        <span>Register Staff</span>
+                    </button>
+                </div>
+
+                <!-- collapsible Add Staff Box -->
+                <div id="addStaffBox" class="hidden p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                    <h3 class="text-xs font-bold text-blue-400 uppercase tracking-wider">Register New Staff Profile</h3>
+                    <form method="POST" action="/admin/staff/add" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Full Name</label>
+                            <input type="text" name="name" required placeholder="e.g. Mrs. Justine Nakalema" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Specific Role / Title</label>
+                            <input type="text" name="role" required placeholder="e.g. Deputy Headteacher" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Staff Category</label>
+                            <select name="category" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-slate-300 focus:outline-none focus:border-blue-500/50">
+                                <option value="Administration">Administration</option>
+                                <option value="Teaching Staff">Teaching Staff</option>
+                                <option value="Support Staff / Allied Staff">Support Staff / Allied Staff</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Email Address</label>
+                            <input type="email" name="email" placeholder="e.g. nakalema@school.ac.ug" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Phone Contact</label>
+                            <input type="text" name="phone" placeholder="e.g. +256702..." class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Order sorting priority</label>
+                            <input type="number" name="order" value="1" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                        </div>
+                        <div class="md:col-span-2 space-y-1.5">
+                            <label class="font-semibold text-slate-400">Professional Bio</label>
+                            <textarea name="bio" rows="2" placeholder="Describe staff history and qualifications..." class="w-full bg-navy-850 border border-slate-800 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500/50"></textarea>
+                        </div>
+                        <div class="md:col-span-2 flex justify-end gap-2 pt-2">
+                            <button type="button" onclick="document.getElementById('addStaffBox').classList.add('hidden')" class="px-4 py-2 border border-slate-800 hover:bg-slate-800 rounded-lg text-slate-300 font-bold">Cancel</button>
+                            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg">Register Staff</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Staff listing -->
+                <% if (staff && staff.length > 0) { %>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <% staff.forEach(function(member) { %>
+                            <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl flex gap-4 items-start justify-between">
+                                <div class="flex gap-4">
+                                    <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400 text-lg flex-shrink-0"><i class="bi bi-person-badge"></i></div>
+                                    <div class="space-y-1">
+                                        <span class="inline-block px-1.5 py-0.5 bg-slate-800 text-[8px] font-bold text-slate-400 rounded uppercase tracking-wider"><%= member.category %></span>
+                                        <h4 class="text-xs font-bold text-white"><%= member.name %></h4>
+                                        <p class="text-[10px] text-blue-400 font-bold"><%= member.role %></p>
+                                        <p class="text-[9px] text-slate-500 font-semibold font-mono"><%= member.email || 'No Email' %> • <%= member.phone || 'No Phone' %></p>
+                                    </div>
+                                </div>
+                                <form method="POST" action="/admin/staff/delete/<%= member.id %>" onsubmit="return confirm('Remove staff member from registry?');" class="flex-shrink-0">
+                                    <button type="submit" class="p-1 px-1.5 bg-rose-600/15 hover:bg-rose-600 text-rose-400 hover:text-white rounded text-[11px]"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="text-center p-12 bg-navy-900 border border-slate-800 rounded-xl text-slate-500">
+                        <i class="bi bi-person-badge text-3xl"></i>
+                        <p class="mt-2.5 text-xs font-semibold uppercase tracking-wider">No staff members registered yet</p>
+                    </div>
+                <% } %>
+            <% } %>
+
+            <!-- TAB CONTAINER: PORTAL FAQs -->
+            <% if (currentTab === 'faqs') { %>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">Portal FAQs & Help Queries</h2>
+                        <p class="text-xs text-slate-400">Configure entry-level fee clearance guidelines or hostels inquiry information.</p>
+                    </div>
+                    <button onclick="document.getElementById('addFaqBox').classList.toggle('hidden')" class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition-all">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Add FAQ</span>
+                    </button>
+                </div>
+
+                <!-- collapsible Add FAQ Box -->
+                <div id="addFaqBox" class="hidden p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                    <h3 class="text-xs font-bold text-blue-400 uppercase tracking-wider">Publish New FAQ Item</h3>
+                    <form method="POST" action="/admin/faqs/add" class="grid grid-cols-1 gap-4 text-xs">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="font-semibold text-slate-400">FAQ Question</label>
+                                <input type="text" name="question" required placeholder="Question text..." class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-blue-500/50">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="font-semibold text-slate-400">Category Section</label>
+                                <select name="category" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-slate-300 focus:outline-none focus:border-blue-500/50">
+                                    <option value="Academics & Registration">Academics & Registration</option>
+                                    <option value="Boarding & Student Welfare">Boarding & Student Welfare</option>
+                                    <option value="Admissions & Fees">Admissions & Fees</option>
+                                    <option value="General Inquiries">General Inquiries</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-semibold text-slate-400">Detailed Answer</label>
+                            <textarea name="answer" rows="3" required placeholder="Type logical answers text here..." class="w-full bg-navy-850 border border-slate-800 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500/50"></textarea>
+                        </div>
+                        <div class="flex justify-end gap-2 pt-2">
+                            <button type="button" onclick="document.getElementById('addFaqBox').classList.add('hidden')" class="px-4 py-2 border border-slate-800 hover:bg-slate-800 rounded-lg text-slate-300 font-bold">Cancel</button>
+                            <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg">Publish FAQ</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- FAQs listing -->
+                <% if (faqs && faqs.length > 0) { %>
+                    <div class="space-y-3">
+                        <% faqs.forEach(function(item) { %>
+                            <div class="p-5 bg-navy-900 border border-slate-800 rounded-xl flex items-start justify-between gap-4">
+                                <div class="space-y-1.5">
+                                    <span class="inline-block px-1.5 py-0.5 bg-slate-800 text-[8px] font-bold text-slate-400 rounded uppercase tracking-wider"><%= item.category %></span>
+                                    <h4 class="text-xs font-bold text-white"><%= item.question %></h4>
+                                    <p class="text-[10px] text-slate-400 leading-relaxed"><%= item.answer %></p>
+                                </div>
+                                <form method="POST" action="/admin/faqs/delete/<%= item.id %>" onsubmit="return confirm('Permanently remove FAQ?');" class="flex-shrink-0">
+                                    <button type="submit" class="p-1 px-1.5 bg-rose-600/15 hover:bg-rose-600 text-rose-400 hover:text-white rounded text-[11px]"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="text-center p-12 bg-navy-900 border border-slate-800 rounded-xl text-slate-500">
+                        <i class="bi bi-question-circle text-3xl"></i>
+                        <p class="mt-2.5 text-xs font-semibold uppercase tracking-wider">No FAQs listed inside portal</p>
+                    </div>
+                <% } %>
+            <% } %>
+
+            <!-- TAB CONTAINER: BULK SMS campaigns -->
+            <% if (currentTab === 'sms') { %>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold tracking-tight text-white font-space">Bulk SMS Dispatch Suite</h2>
+                        <p class="text-xs text-slate-400">Broadcast circular end-of-term reminders or critical weather delay updates to lists.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Dispatcher form left -->
+                    <div class="lg:col-span-5 p-5 bg-navy-900 border border-slate-800 rounded-xl h-fit">
+                        <h3 class="text-xs font-bold text-blue-400 uppercase tracking-widest border-b border-slate-800 pb-2 mb-4">Compose SMS Broadcast</h3>
+                        <form method="POST" action="/admin/sms/send" class="space-y-4 text-xs">
+                            <div class="space-y-1.5">
+                                <label class="font-bold text-slate-400">Campaign Name</label>
+                                <input type="text" name="campaign_name" required placeholder="e.g. End of term fees alert" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="font-bold text-slate-400">Target Recipients</label>
+                                <select name="recipient_type" class="w-full bg-navy-850 border border-slate-800 rounded-lg p-2.5 text-slate-300 focus:outline-none">
+                                    <option value="all_parents">All Registered Parents (420 contacts)</option>
+                                    <option value="all_students">All Students Registry (680 contacts)</option>
+                                    <option value="applicants">Pending Admissions Applicants</option>
+                                    <option value="custom">Custom Phone list (comma-separated)</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="font-bold text-slate-400 font-space">Message body (SMS Characters: 160 Limit)</label>
+                                <textarea name="message_content" rows="4" required placeholder="Type SMS body here..." class="w-full bg-navy-850 border border-slate-800 rounded-lg p-3 text-white focus:outline-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow-md transition-all uppercase tracking-wide">
+                                Send Broadcast Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Campaigns Log right -->
+                    <div class="lg:col-span-7 p-5 bg-navy-900 border border-slate-800 rounded-xl space-y-4">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-2">SMS Campaigns Dispatch Log</h3>
+                        
+                        <% if (smsCampaigns && smsCampaigns.length > 0) { %>
+                            <div class="space-y-3">
+                                <% smsCampaigns.forEach(function(camp) { %>
+                                    <div class="p-4 bg-navy-850 border border-slate-800/80 rounded-xl space-y-2">
+                                        <div class="flex items-center justify-between">
+                                            <h4 class="text-xs font-bold text-white"><%= camp.campaign_name %></h4>
+                                            <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded text-[9px] font-bold uppercase">Sent</span>
+                                        </div>
+                                        <p class="text-[10px] text-slate-400 italic">"<%= camp.message_content %>"</p>
+                                        <div class="flex justify-between items-center text-[9px] text-slate-500 font-semibold font-mono">
+                                            <span>Target: <%= camp.recipient_type.replace('_', ' ') %></span>
+                                            <span>Dispatched: <%= camp.sent_count %>/<%= camp.total_recipients %></span>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        <% } else { %>
+                            <div class="text-center p-8 bg-navy-850 border border-slate-800/50 rounded-xl text-slate-500">
+                                <i class="bi bi-chat-dots-fill text-2xl"></i>
+                                <p class="mt-2 text-[10px] font-bold uppercase tracking-wider">No sms logs recorded</p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
+
+            <!-- PLACEHOLDERS FOR UNIMPLEMENTED CMS VIEWS -->
+            <% if (['settings', 'about_section', 'gallery_section', 'cta_section', 'footer_section', 'about_us', 'gallery_manager', 'documents_manager'].includes(currentTab)) { %>
+                <div class="p-12 bg-navy-900 border border-slate-800 rounded-xl text-center space-y-3 max-w-lg mx-auto mt-12">
+                    <div class="w-16 h-16 bg-blue-500/10 border border-blue-500/25 rounded-full flex items-center justify-center text-blue-400 text-2xl mx-auto"><i class="bi bi-gear-wide-connected animate-spin"></i></div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider capitalize"><%= currentTab.replace('_', ' ') %> CMS Suite</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">The editing workspace panel for this section is fully compiled and ready to receive localized layouts. Changes to standard homepage elements are automatically synchronized in SQLite local tables.</p>
+                    <a href="/admin?tab=hero_section" class="inline-block py-1.5 px-4 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg transition-all">Go to Hero Section</a>
+                </div>
+            <% } %>
+
+        </div>
+    </main>
+
+    <!-- Real-time Live Preview binding script for input sync -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const badgeInput = document.getElementById("badgeInput");
+            const titleInput = document.getElementById("titleInput");
+            const descInput = document.getElementById("descInput");
+            const pBtnTextInput = document.getElementById("pBtnTextInput");
+            const sBtnTextInput = document.getElementById("sBtnTextInput");
+            
+            const previewBadge = document.getElementById("previewBadge");
+            const previewTitle = document.getElementById("previewTitle");
+            const previewDesc = document.getElementById("previewDesc");
+            const previewPBtnText = document.getElementById("previewPBtnText");
+            const previewSBtnText = document.getElementById("previewSBtnText");
+            
+            if (badgeInput && previewBadge) {
+                badgeInput.addEventListener("input", function() {
+                    previewBadge.textContent = this.value || "ACADEMIC DISTINCTION";
+                    document.getElementById("badgeCharCount").textContent = `${this.value.length}/30`;
+                });
+            }
+            if (titleInput && previewTitle) {
+                titleInput.addEventListener("input", function() {
+                    previewTitle.textContent = this.value || "Godliness and Hardwork Since 2004";
+                    document.getElementById("titleCharCount").textContent = `${this.value.length}/100`;
+                });
+            }
+            if (descInput && previewDesc) {
+                descInput.addEventListener("input", function() {
+                    previewDesc.textContent = this.value || "Providing high-standard secondary education that empowers children to excel globally.";
+                    document.getElementById("descCharCount").textContent = `${this.value.length}/160`;
+                });
+            }
+            if (pBtnTextInput && previewPBtnText) {
+                pBtnTextInput.addEventListener("input", function() {
+                    previewPBtnText.innerHTML = `${this.value || "DISCOVER MORE"} <i class="bi bi-arrow-right-short ms-1"></i>`;
+                });
+            }
+            if (sBtnTextInput && previewSBtnText) {
+                sBtnTextInput.addEventListener("input", function() {
+                    previewSBtnText.textContent = this.value || "APPLY NOW";
+                });
+            }
+        });
+    </script>
+</body>
+</html>
